@@ -1,0 +1,5 @@
+/* frontend/src/components/header/header.css */
+.header {
+  display: flex;
+  color: black;
+}
