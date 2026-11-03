@@ -1,5 +1,19 @@
 /* frontend/src/index.css */
-:root {
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  background: #fffdf6;
+  text-align: left;
+  border: 0;
+  display: block;
+}
+
+/* :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -109,4 +123,4 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
+} */
