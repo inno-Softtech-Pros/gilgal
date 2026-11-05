@@ -1,3 +1,4 @@
+// backend/index.js
 require("dotenv").config(); // must be the very first line
 
 const express = require("express");
