@@ -1,128 +1,40 @@
-// frontend/src/pages/events/events.jsx
-import { useMemo, useState } from "react";
+// frontend/src/pages/calendar/calendar.jsx
+import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import useFeatureHeader from "../../hooks/useFeatureHeader";
-import "./events.css";
+import apiClient from "../../config/axios";
+import "./calendar.css";
 
 const FEATURE_HEADER = {
-  backgroundImage: "/dark-sky-cross.jpeg",
+  backgroundImage: "",
   title: "Events",
   subtitle: "Discover what is happening at Gilgal AG Church this month"
 };
 
-const EVENTS = [
-  {
-    day: 1,
-    month: 8,
-    year: 2026,
-    title: "Carmel Prayer",
-    time: "5 PM to 8 PM",
-    description: "A focused prayer gathering for every season of life. Together we seek the Lord and encourage one another.",
-    tone: "purple"
-  },
-  {
-    day: 2,
-    month: 8,
-    year: 2026,
-    title: "Spiritual Emphasis Bible Study",
-    time: "7 PM to 9 PM",
-    description: "Wednesday Bible study with practical teaching and conversation.",
-    tone: "green"
-  },
-  {
-    day: 4,
-    month: 8,
-    year: 2026,
-    title: "Cornerstone Prayer",
-    time: "10 AM to 12 PM",
-    description: "A community prayer meeting centered on intercession and faith.",
-    tone: "orange"
-  },
-  {
-    day: 6,
-    month: 8,
-    year: 2026,
-    title: "Women's Fellowship",
-    time: "7 PM to 9 PM",
-    description: "A warm gathering for women to grow, connect, and encourage one another.",
-    tone: "pink"
-  },
-  {
-    day: 8,
-    month: 8,
-    year: 2026,
-    title: "Sunday Service",
-    time: "9 AM to 11 AM",
-    description: "Join us for worship, fellowship, and a message from God's Word.",
-    tone: "blue"
-  },
-  {
-    day: 10,
-    month: 8,
-    year: 2026,
-    title: "Youth Fellowship",
-    time: "6 PM to 8 PM",
-    description: "Worship, discussion, and activities for our young people.",
-    tone: "yellow"
-  },
-  {
-    day: 12,
-    month: 8,
-    year: 2026,
-    title: "Sunday Service",
-    time: "9 AM to 11 AM",
-    description: "A joyful Sunday gathering for the whole church family.",
-    tone: "blue"
-  },
-  {
-    day: 13,
-    month: 8,
-    year: 2026,
-    title: "Church Sports Day",
-    time: "10 AM to 2 PM",
-    description: "Team games, fellowship, and friendly competition for all ages.",
-    tone: "orange"
-  },
-  {
-    day: 15,
-    month: 8,
-    year: 2026,
-    title: "Praise Quake",
-    time: "6 PM to 9 PM",
-    description: "An evening of energetic praise and heartfelt worship.",
-    tone: "green"
-  },
-  {
-    day: 19,
-    month: 8,
-    year: 2026,
-    title: "Community Outreach",
-    time: "4 PM to 7 PM",
-    description: "Serving our neighborhood through prayer and practical support.",
-    tone: "purple"
-  },
-  {
-    day: 22,
-    month: 8,
-    year: 2026,
-    title: "Sunday Service",
-    time: "9 AM to 11 AM",
-    description: "Sunday worship and teaching for the church family.",
-    tone: "blue"
-  },
-  {
-    day: 27,
-    month: 8,
-    year: 2026,
-    title: "Prayer Night",
-    time: "7 PM to 9 PM",
-    description: "Come together to pray for the church, city, and the nations.",
-    tone: "pink"
-  }
-];
-
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const TONES = [
+  { name: "purple", color: "#8f78d4" },
+  { name: "green", color: "#58b778" },
+  { name: "orange", color: "#d89a52" },
+  { name: "pink", color: "#e87982" },
+  { name: "blue", color: "#5797c7" },
+  { name: "yellow", color: "#d7b657" }
+];
+
+const transformEvent = (event, index) => {
+  const [year, month, day] = event.date.split("-").map(Number);
+  return {
+    ...event,
+    day,
+    month: month - 1,
+    year,
+    time: event.timings,
+    tone: TONES[index % TONES.length].name,
+    color: TONES[index % TONES.length].color
+  };
+};
 
 const getEventTimestamp = (event) => {
   const startTime = event.time.match(/(\d+)\s*(AM|PM)/i);
@@ -135,7 +47,11 @@ const getEventTimestamp = (event) => {
 
 export default function Events() {
   useFeatureHeader(FEATURE_HEADER);
-  const [view, setView] = useState(new Date(2026, 8, 1));
+  const [view, setView] = useState(new Date());
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(3);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -143,6 +59,31 @@ export default function Events() {
 
   const year = view.getFullYear();
   const month = view.getMonth();
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const startDate = `${year}-${String(month + 1).padStart(2, "0")}-01`;
+        const lastDay = new Date(year, month + 1, 0).getDate();
+        const endDate = `${year}-${String(month + 1).padStart(2, "0")}-${lastDay}`;
+
+        const res = await apiClient.get("/calendar", {
+          params: { startDate, endDate, status: "scheduled" }
+        });
+        if (!res.data.success) throw new Error("Failed to fetch events");
+        setEvents(res.data.events.map(transformEvent));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+  }, [year, month]);
+
+  
   const grid = useMemo(() => {
     const first = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -156,7 +97,7 @@ export default function Events() {
     });
   }, [year, month]);
 
-  const sortedEvents = useMemo(() => [...EVENTS].sort((first, second) => getEventTimestamp(first) - getEventTimestamp(second)), []);
+  const sortedEvents = useMemo(() => [...events].sort((a, b) => getEventTimestamp(a) - getEventTimestamp(b)), [events]);
 
   const upcomingEvents = sortedEvents.filter((event) =>
     `${event.title} ${event.description}`.toLowerCase().includes(query.trim().toLowerCase())
@@ -187,6 +128,8 @@ export default function Events() {
 
   return (
     <section className="events-page feature-page">
+      {loading && <p className="events-empty">Loading events...</p>}
+      {error && <p className="events-empty">Could not load events.</p>}
       <label className="events-search">
         <Search size={17} aria-hidden="true" />
         <input
@@ -254,12 +197,12 @@ export default function Events() {
         <div className="events-calendar-grid events-days">
           {grid.map((cell, index) => {
             const normalizedCell = new Date(cell.year, cell.month, cell.day);
-            const eventCount = EVENTS.filter(
-              (event) =>
-                event.day === normalizedCell.getDate() &&
-                event.month === normalizedCell.getMonth() &&
-                event.year === normalizedCell.getFullYear()
-            ).length;
+            const dayEvents = events.filter((event) =>
+              event.day === normalizedCell.getDate() &&
+              event.month === normalizedCell.getMonth() &&
+              event.year === normalizedCell.getFullYear()
+            ).slice(0, 3);
+
             return (
               <button
                 type="button"
@@ -269,7 +212,13 @@ export default function Events() {
                 aria-label={`Open events for ${MONTHS[cell.month]} ${cell.day}, ${cell.year}`}
               >
                 <span>{cell.day}</span>
-                {eventCount > 0 && <i aria-label={`${eventCount} events`} />}
+                {dayEvents.length > 0 && (
+                  <span className="events-day-dots" aria-label={`${dayEvents.length} events`}>
+                    {dayEvents.map((ev, i) => (
+                      <i key={i} style={{ background: ev.color }} />
+                    ))}
+                  </span>
+                )}
               </button>
             );
           })}

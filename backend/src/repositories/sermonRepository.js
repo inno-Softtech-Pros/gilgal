@@ -1,3 +1,4 @@
+// backend/src/repositories/sermonRepository.js
 const { ScanCommand } = require("@aws-sdk/lib-dynamodb");
 const dynamoDB = require("../config/dynamodb");
 
@@ -19,13 +20,12 @@ const scanAll = async (tableName) => {
     const result = await dynamoDB.send(
       new ScanCommand({
         TableName: tableName,
-        ProjectionExpression:
-          "platformId, #title, description, thumbnail, publishedAt, contentUrl, #dur",
+        ProjectionExpression: "platformId, #title, description, thumbnail, publishedAt, contentUrl, #dur",
         ExpressionAttributeNames: {
           "#title": "title",
-          "#dur": "duration",
+          "#dur": "duration"
         },
-        ExclusiveStartKey: lastKey,
+        ExclusiveStartKey: lastKey
       })
     );
 
@@ -49,14 +49,12 @@ const getLatest = async (suffix, churchId, limit) => {
       thumbnail: item.thumbnail,
       date: item.publishedAt,
       videoUrl: item.contentUrl,
-      duration: item.duration,
+      duration: item.duration
     }));
 };
 
-const getLatestSermons = (churchId, limit) =>
-  getLatest("SERMONS", churchId, limit);
+const getLatestSermons = (churchId, limit) => getLatest("SERMONS", churchId, limit);
 
-const getLatestMusic = (churchId, limit) =>
-  getLatest("MUSIC", churchId, limit);
+const getLatestMusic = (churchId, limit) => getLatest("MUSIC", churchId, limit);
 
 module.exports = { getLatestSermons, getLatestMusic };

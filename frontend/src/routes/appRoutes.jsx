@@ -1,9 +1,10 @@
 // frontend/src/routes/appRoutes.jsx
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "../components/layout/layout";
+import ProtectedRoute from "./protectedRoute";
 
 import Home from "../pages/home/home";
-import Events from "../pages/events/events";
+import Events from "../pages/calendar/calendar";
 import Media from "../pages/media/media";
 
 import ComingSoon from "../pages/coming-soon/comingSoon";
@@ -22,7 +23,15 @@ export default function AppRoutes() {
       <Route path="/about-us" element={<ComingSoon />} />
       <Route path="/gallery" element={<ComingSoon />} />
       <Route path="/contact-us" element={<ComingSoon />} />
-      <Route path="/donations" element={<ComingSoon />} />
+      <Route
+        path="/donations"
+        element={
+          <ProtectedRoute>
+            <ComingSoon />
+          </ProtectedRoute>
+        }
+      />
+      
       <Route path="/coming-soon" element={<ComingSoon />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

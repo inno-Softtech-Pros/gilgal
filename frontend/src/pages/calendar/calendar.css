@@ -1,4 +1,4 @@
-/* frontend/src/pages/events/events.css */
+/* frontend/src/pages/calendar/calendar.css */
 .events-page {
   width: 100%;
   max-width: 1120px;
@@ -206,7 +206,7 @@
   cursor: pointer;
 }
 
-.events-days button span {
+.events-days button span:first-child {
   width: 34px;
   height: 34px;
   display: grid;
@@ -214,7 +214,7 @@
   border-radius: 50%;
 }
 
-.events-days button:hover span {
+.events-days button:hover span:first-child {
   background: #edf3fb;
 }
 
@@ -222,14 +222,21 @@
   color: #aeb5c1;
 }
 
-.events-days button i {
+.events-day-dots {
   position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.events-day-dots i {
   width: 6px;
   height: 6px;
-  right: 12px;
-  bottom: 8px;
   border-radius: 50%;
-  background: #e9b12b;
+  display: block;
 }
 
 .events-agenda {
@@ -509,10 +516,6 @@
 
   .events-days button {
     min-height: 48px;
-  }
-
-  .events-days button i {
-    right: 5px;
   }
 }
 
