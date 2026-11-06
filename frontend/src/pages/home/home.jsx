@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import intro1 from "../../assets/home/intro1.png";
 import "./home.css";
 
 /* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = {
-  logo: "/images/logo.png",
-  hero: "/images/hero.jpg",
-  intro1: "/images/intro-1.jpg",
+ 
+  intro1,
   intro2: "/images/intro-2.jpg",
   pastor: "/images/pastor.jpg",
   phone: "/images/app-phone.png",
@@ -14,7 +14,7 @@ const IMG = {
 };
 
 /* ---------- Static data ---------- */
-const NAV_LINKS = ["Home", "About Us", "Media", "Gallery", "Events", "Contact", "Give"];
+
 
 const INFO = [
   { icon: "🕘", title: "Sunday Service", text: "9:00 AM - 11:00 AM" },
@@ -171,7 +171,7 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* ===== Hero + navbar ===== */}
+      {/* ===== Hero + navbar =====
       <header className="hero" style={{ backgroundImage: `url(${IMG.hero})` }}>
         <nav className="nav">
           <a href="/" className="nav__logo">
@@ -203,7 +203,7 @@ export default function Home() {
           </a>
         </div>
         <a href="#info" className="hero__scroll" aria-label="Scroll down" />
-      </header>
+      </header> */}
 
       {/* ===== Info strip ===== */}
       <Reveal as="section" id="info" className="info-strip">
@@ -394,65 +394,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Footer ===== */}
-      <footer className="footer">
-        <div className="footer__top">
-          <div className="footer__brand">
-            <div className="footer__brand-head">
-              <img src={IMG.logo} alt="Gilgal AG logo" />
-              <div>
-                <strong>Gilgal AG</strong>
-                <small>International Worship Center</small>
-              </div>
-            </div>
-            <p>
-              A place where faith, hope, and love come together. Experience the power of the Holy
-              Spirit in worship and fellowship.
-            </p>
-            <div className="footer__social">
-              <a href="#" aria-label="Facebook">f</a>
-              <a href="#" aria-label="Instagram">◎</a>
-              <a href="#" aria-label="YouTube">▶</a>
-            </div>
-          </div>
-
-          {FOOTER_COLS.map((col) => (
-            <div className="footer__col" key={col.title}>
-              <h4>{col.title}</h4>
-              <ul>
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#">{l}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div className="footer__col footer__contact">
-            <h4>Contact</h4>
-            <p>
-              📍 Building No. 3 and 4, loke, 168/13, Hosur Rd, behind Dakshin Honda Showroom, Hal
-              Layout, Singasandra, Bengaluru, Karnataka, 560068
-            </p>
-            <p>📞 +91 - 9880077023 / +91 - 9844072577</p>
-          </div>
-
-          <div className="footer__col footer__quick">
-            <a href="/give">Give</a>
-            <a href="/events">Events</a>
-            <a href="/gallery">Gallery</a>
-          </div>
-        </div>
-
-        <div className="footer__bottom">
-          <small>©2026 Gilgal AG International Worship Center. All rights reserved.</small>
-          <div>
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/terms-of-service">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }

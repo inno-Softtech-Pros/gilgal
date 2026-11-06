@@ -1,4 +1,5 @@
 /* Media page: all selectors are scoped under .media-page or prefixed sm- / media- */
+/* The header (hero) and footer come from the shared Layout, so none of their styles are here. */
 
 .media-page {
   --navy: #17306b;
@@ -8,43 +9,12 @@
   --line: #dbe2ee;
   --bg: #f7f9fc;
   background: var(--bg);
+  font-family: "Quicksand", system-ui, sans-serif;
 }
 
 .media-page :focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 2px;
-}
-
-/* ---------- Hero (reuses .hero + .nav from home.css, but short) ---------- */
-.media-page .media-hero {
-  min-height: 0;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-  background-size: cover;
-  background-position: center;
-}
-
-.media-hero__content {
-  margin: auto;
-  padding: 0 20px 40px;
-  text-align: center;
-  color: #fff;
-}
-
-.media-hero__content h1 {
-  margin: 0 0 14px;
-  font-size: clamp(2rem, 5vw, 2.6rem);
-  font-weight: 400;
-  letter-spacing: 0.5em;
-  padding-left: 0.5em; /* balances the trailing letter-spacing */
-  text-transform: uppercase;
-}
-
-.media-hero__content p {
-  margin: 0;
-  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
-  font-weight: 600;
 }
 
 /* ---------- Tabs ---------- */
@@ -96,7 +66,8 @@
 /* ---------- Featured (latest) ---------- */
 .sm-feature {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: stretch;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--line);
@@ -146,7 +117,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #fff;
 }
 
 .sm-channel strong,
@@ -192,9 +164,9 @@
 }
 
 .sm-feature .sm-thumb {
-  height: 100%;
-  min-height: 300px;
-  aspect-ratio: auto;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
 }
 
 .sm-thumb img {
@@ -462,7 +434,6 @@
 @media (max-width: 900px) {
   .sm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sm-feature { grid-template-columns: 1fr; }
-  .sm-feature .sm-thumb { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 600px) {

@@ -1,5 +1,5 @@
 /* frontend/src/components/header/header.css */
-.hd-main {
+/* .hd-main {
   position: relative;
   width: 100%;
   height: 25rem;
@@ -12,6 +12,30 @@
   background-repeat: no-repeat;
   color: hsl(0, 0%, 100%);
   font-family: "Quicksand", "Segoe UI", sans-serif;
+} */
+
+/* .hd-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(6, 18, 42, .78) 0%, rgba(9, 31, 64, .18) 42%, rgba(5, 16, 32, .68) 100%),
+    radial-gradient(circle at 72% 24%, rgba(233, 177, 43, .14), transparent 24%);
+} */
+
+.hd-main {
+  position: relative;
+  width: 100%;
+  height: clamp(25rem, 65vh, 42rem);
+  display: flex;
+  isolation: isolate;
+  overflow: hidden;
+  background-image: var(--hd-background-image);
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  color: hsl(0, 0%, 100%);
+  font-family: "Quicksand", "Segoe UI", sans-serif;
 }
 
 .hd-overlay {
@@ -19,8 +43,8 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(6, 18, 42, .78) 0%, rgba(9, 31, 64, .18) 42%, rgba(5, 16, 32, .68) 100%),
-    radial-gradient(circle at 72% 24%, rgba(233, 177, 43, .14), transparent 24%);
+    linear-gradient(180deg, rgba(6, 18, 42, .55) 0%, rgba(9, 31, 64, 0) 38%, rgba(5, 16, 32, .6) 100%),
+    radial-gradient(circle at 72% 24%, rgba(233, 177, 43, .1), transparent 24%);
 }
 
 .hd-container {
@@ -256,7 +280,7 @@
 
 @media (max-width: 760px) {
   .hd-main {
-    height: 21rem;
+     height: clamp(21rem, 55vh, 30rem);
   }
 
   .hd-logo-box {

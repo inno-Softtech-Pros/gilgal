@@ -1,11 +1,10 @@
-// backend/src/routes/sermonRoutes.js
 const express = require("express");
 const router = express.Router();
 
-const churchContext = require("../middlewares/churchContext");
+const publicChurch = require("../middlewares/publicChurch");
 const sermonController = require("../controllers/sermonController");
 
-router.get("/latest", churchContext, sermonController.getLatestSermons);
-router.get("/music/latest", churchContext, sermonController.getLatestMusic);
+router.get("/:churchId/latest", publicChurch, sermonController.getLatestSermons);
+router.get("/:churchId/music/latest", publicChurch, sermonController.getLatestMusic);
 
 module.exports = router;
