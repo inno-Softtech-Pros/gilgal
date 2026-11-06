@@ -3,7 +3,7 @@ import "./media.css";
 
 /* ---------- Config ---------- */
 const API_URL = import.meta.env.VITE_API_URL;
-const CHURCH_ID = import.meta.env.VITE_CHURCH_ID;
+
 const PAGE_SIZE = 9;
 const DEFAULT_SPEAKER = "Rev. Denny Sam"; // used when the title has no speaker in it
 const CHANNEL_NAME = "Gilgal AG International Worship Centre";
@@ -84,7 +84,7 @@ function useMedia(path, reloadKey) {
     const controller = new AbortController();
     setState({ items: [], status: "loading" });
 
-    fetch(`${API_URL}/sermons/${CHURCH_ID}/${path}?limit=50`, { signal: controller.signal })
+    fetch(`${API_URL}/sermons/${path}?limit=50`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error("Request failed");
         return res.json();
