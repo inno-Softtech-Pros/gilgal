@@ -1,0 +1,475 @@
+/* Sizes are the 1440px design values, scaled with clamp() for smaller screens */
+.gallery {
+  --blue: #0d3b66;
+  --gold: #c99a3e;
+  --pad: clamp(16px, 2.4vw, 35px);
+  --gap: clamp(12px, 1.7vw, 24px);
+  --radius: clamp(6px, 0.85vw, 12px);
+
+  background: #fff;
+  color: var(--blue);
+}
+
+.gallery .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Hero */
+.gallery-hero {
+  position: relative;
+  height: 100vh; /* fills the first screen; the tabs start below the fold */
+  height: 100svh;
+  min-height: 480px;
+  background: #0b0b10 center / cover no-repeat;
+  color: #fff;
+  text-align: center;
+}
+
+.gallery-hero__title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding-left: 0.34em; /* balances the trailing letter-spacing */
+  font-size: clamp(34px, 5vw, 72px);
+  font-weight: 400;
+  letter-spacing: 0.34em;
+}
+
+.gallery-hero__subtitle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 58%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0 16px;
+  font-size: clamp(18px, 2.65vw, 38px);
+  font-weight: 700;
+}
+
+/* Category tabs: All / Worship / Events / Youth / Children */
+.gallery-tabs {
+  position: relative;
+  z-index: 1;
+  scroll-margin-top: clamp(60px, 5.6vw, 80px); /* keeps the bar clear of the sticky navbar */
+  background: #fff;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-tabs__list {
+  display: flex;
+  gap: clamp(8px, 1.7vw, 24px);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(8px, 3.8vw, 55px);
+  overflow-x: auto;
+}
+
+.gallery-tab {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: clamp(52px, 6.1vw, 88px);
+  padding: 0 clamp(12px, 1.7vw, 24px);
+  font-size: clamp(18px, 2.85vw, 41px);
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--blue);
+}
+
+.gallery-tab:hover {
+  opacity: 0.8;
+}
+
+.gallery-tab--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(4px, 0.5vw, 7px);
+  background: var(--gold);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Photo area under the tabs */
+.gallery-grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(40px, 8.3vw, 120px) var(--pad);
+}
+
+.gallery-grid__empty {
+  margin: 0;
+  padding: 80px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.gallery-grid__empty a {
+  color: var(--gold);
+}
+
+/* Worship: exact mosaic, every tile positioned in % of the 1370 x 3127 design grid */
+.gallery-grid__canvas {
+  position: relative;
+  aspect-ratio: var(--ratio, 1370 / 3127);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery-tile {
+  position: absolute;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #e8e8e8;
+}
+
+.gallery-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* All, Youth, Children and event pages: photos keep their own shape */
+.gallery-masonry {
+  columns: 3;
+  column-gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery-masonry li {
+  break-inside: avoid;
+  margin-bottom: var(--gap);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #e8e8e8;
+}
+
+.gallery-masonry img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Events tab: category dropdown + search */
+.events-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+/* Category dropdown (custom): button + white panel */
+.events-select {
+  position: relative;
+  flex: 0 1 330px;
+  min-width: 200px;
+}
+
+.events-select__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  height: clamp(44px, 3.9vw, 56px);
+  padding: 0 clamp(14px, 1.6vw, 22px) 0 clamp(18px, 2.4vw, 34px);
+  background: #064c8e;
+  border: 2px solid #123563;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(15px, 1.8vw, 26px);
+  font-weight: 700;
+  text-align: left;
+  color: #fff;
+}
+
+.events-select__button:focus-visible {
+  outline: 3px solid #123563;
+  outline-offset: 2px;
+}
+
+.events-select__button svg {
+  flex-shrink: 0;
+  width: clamp(20px, 1.8vw, 26px);
+  height: clamp(20px, 1.8vw, 26px);
+  transition: transform 0.2s;
+}
+
+.events-select--open .events-select__button svg {
+  transform: rotate(180deg);
+}
+
+.events-select__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding: 12px;
+  background: #fff;
+  border: 2px solid #123563;
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(18, 53, 99, 0.18);
+}
+
+/* Search bar at the top of the list */
+.events-select__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1.5px solid #123563;
+  border-radius: 999px;
+  color: #123563;
+}
+
+.events-select__search:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+.events-select__search svg {
+  flex-shrink: 0;
+}
+
+.events-select__search input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #123563;
+}
+
+.events-select__search input::placeholder {
+  color: #546e8f;
+  opacity: 1;
+}
+
+.events-select__list {
+  max-height: 240px;
+  margin: 8px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.events-select__option {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 17px;
+  text-align: left;
+  color: #123563;
+  transition: background-color 0.15s;
+}
+
+/* Hover / keyboard focus: soft blue */
+.events-select__option:hover,
+.events-select__option:focus-visible {
+  background: #e6edf7;
+  outline: none;
+}
+
+/* Selected category: soft cream, bold */
+.events-select__option--selected {
+  background: #f4ecc9;
+  font-weight: 700;
+}
+
+.events-select__option--selected:hover,
+.events-select__option--selected:focus-visible {
+  background: #ecdfae;
+}
+
+.events-select__empty {
+  margin: 12px 0 4px;
+  padding: 0 16px;
+  font-size: 16px;
+  color: #546e8f;
+}
+
+.events-search {
+  flex: 0 1 520px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: clamp(44px, 3.9vw, 56px);
+  padding: 0 clamp(14px, 2vw, 28px);
+  border: 2px solid #123563;
+  border-radius: 999px;
+  color: #123563;
+}
+
+.events-search svg {
+  flex-shrink: 0;
+  width: clamp(18px, 1.6vw, 22px);
+  height: clamp(18px, 1.6vw, 22px);
+}
+
+.events-search input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: clamp(15px, 1.45vw, 21px);
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.events-search input::placeholder {
+  color: #546e8f;
+  opacity: 1;
+}
+
+.events-search:focus-within {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Events tab: cards (the last row stays centred, like the design) */
+.events-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(24px, 3.4vw, 49px) var(--gap);
+  margin: clamp(40px, 8.3vw, 120px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event-card {
+  width: calc((100% - 2 * var(--gap)) / 3);
+  overflow: hidden;
+  border-radius: 32px;
+  background: #f4ecc9;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+}
+
+.event-card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.event-card img,
+.event-card__placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 441 / 279;
+  object-fit: cover;
+}
+
+.event-card__placeholder {
+  background: #969090;
+}
+
+.event-card__title {
+  display: flex;
+  align-items: center;
+  min-height: clamp(56px, 6.1vw, 88px);
+  padding: 0 clamp(16px, 2.2vw, 32px);
+  font-size: clamp(18px, 1.95vw, 28px);
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* Event page: round back button, then the photos */
+.gallery-grid--album {
+  padding-top: clamp(32px, 4.6vw, 66px);
+}
+
+.event-album__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(26px, 2.2vw, 32px);
+  height: clamp(26px, 2.2vw, 32px);
+  margin-bottom: clamp(32px, 4.5vw, 65px);
+  border-radius: 50%;
+  background: #123563;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.event-album__back:hover {
+  background: var(--gold);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .gallery-masonry {
+    columns: 2;
+  }
+
+  .event-card {
+    width: calc((100% - var(--gap)) / 2);
+  }
+}
+
+/* Small screens: the exact Worship mosaic gets too tiny, so use a simple grid */
+@media (max-width: 700px) {
+  .gallery-grid__canvas {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .gallery-tile {
+    position: static;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 560px) {
+  .event-card {
+    width: 100%;
+  }
+
+  .events-select,
+  .events-search {
+    flex-basis: 100%;
+  }
+}

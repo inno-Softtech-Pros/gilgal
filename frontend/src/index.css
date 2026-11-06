@@ -1,4 +1,5 @@
-/* frontend/src/index.css */
+@import url("https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,6 +14,7 @@
 }
 
 html {
+  color-scheme: light;
   min-width: 320px;
   min-height: 100%;
 }
@@ -24,6 +26,11 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   text-align: left;
+  font-family: "Andika", system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  background: #fffdf8;
+  color: #252a57;
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {
@@ -31,6 +38,9 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   display: block;
+  max-width: none;
+  margin: 0;
+  border: none;
 }
 
 img,

@@ -1,151 +1,333 @@
-/* frontend/src/components/footer/footer.css */
-.ft-main {
-  background: #174887;
-  color: rgba(255, 255, 255, .86);
-  padding: 38px clamp(20px, 4vw, 64px) 18px;
-  font-family: "Quicksand", "Segoe UI", sans-serif;
-  font-size: 13px;
+/* Footer.css
+   Sizes are the 1440px design values, scaled with clamp() for smaller screens.
+   All classes use the .gf prefix so no other stylesheet in the app can clash with them. */
+
+.gf,
+.gf *,
+.gf *::before,
+.gf *::after {
+  box-sizing: border-box;
 }
 
-.ft-main a {
+.gf {
+  --pad: clamp(16px, 2.4vw, 35px);
+
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: #064c8d;
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+}
+
+.gf a {
   color: inherit;
   text-decoration: none;
 }
 
-.ft-main h4 {
-  margin: 0 0 14px;
-  color: #fff;
-  font-size: 16px;
+.gf a:hover {
+  text-decoration: underline;
 }
 
-.ft-top {
-  max-width: 1200px;
+/* Photo area */
+.gf__top {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-top: clamp(32px, 3.5vw, 50px);
+  background: #0a4479 url("/images/footer/footer-bg.jpg") center 55% / cover no-repeat;
+}
+
+/* Blue overlay: fill #064C8E at 82% opacity (from the design) */
+.gf__top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #064c8e;
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.gf__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 0 var(--pad);
   display: grid;
-  grid-template-columns: 1.45fr repeat(3, .85fr) 1.25fr .5fr;
-  gap: 28px;
+  /* minmax(0, …) stops long content from blowing the columns out of shape */
+  grid-template-columns:
+    minmax(0, 2.7fr) minmax(0, 1fr) minmax(0, 1.25fr)
+    minmax(0, 1.25fr) minmax(0, 2.1fr) minmax(0, 0.7fr);
+  column-gap: clamp(12px, 1.7vw, 24px);
+  row-gap: 32px;
+  align-items: start;
 }
 
-.ft-brand-head {
+.gf__inner > * {
+  min-width: 0;
+}
+
+/* Brand */
+.gf__logo {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 14px;
 }
 
-.ft-brand-head img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
+.gf__logo img {
+  flex-shrink: 0;
+  height: clamp(72px, 7.6vw, 110px);
+  width: auto;
 }
 
-.ft-brand-head strong {
+.gf__logo > div {
+  min-width: 0;
+}
+
+.gf__logo strong {
   display: block;
-  color: #fff;
-  font-size: 23px;
-  line-height: 1.05;
+  font-size: clamp(28px, 2.8vw, 40px);
+  line-height: 1.2;
 }
 
-.ft-brand-head small {
+.gf__logo span {
   display: block;
-  margin-top: 4px;
-  font-size: 12px;
+  font-size: clamp(12px, 1.1vw, 16px);
+  line-height: 1.4;
 }
 
-.ft-brand p {
-  max-width: 260px;
+.gf__brand p {
+  max-width: 19em;
+  margin: 22px 0 18px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.75;
+}
+
+.gf__social {
+  display: flex;
+  gap: 9px;
+  padding-left: 3px;
+}
+
+.gf__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #f5b800;
+  color: #074278;
+  border-radius: 4px;
+}
+
+/* Link columns */
+.gf__col {
+  padding-top: 14px;
+}
+
+.gf__col h4 {
+  margin: 0 0 26px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+}
+
+.gf__col ul {
+  list-style: none;
   margin: 0;
-  line-height: 1.7;
+  padding: 0;
+  max-width: 125px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.85;
 }
 
-.ft-social {
+.gf__col li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Contact */
+.gf__contact p {
   display: flex;
   gap: 8px;
-  margin-top: 14px;
+  margin: 0 0 16px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 2;
 }
 
-.ft-social a {
-  width: 28px;
-  height: 28px;
+.gf__contact svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Give / Events / Gallery */
+.gf__quick {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+}
+
+/* App download card */
+.gf__app {
+  position: relative;
+  z-index: 2;
   display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  align-items: center;
+  width: calc(100% - 2 * var(--pad));
+  max-width: 1104px;
+  min-height: 136px;
+  margin: clamp(28px, 3.1vw, 45px) auto -21px;
+  padding: 0 40px;
+  background: rgba(6, 54, 112, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-.ft-social a:hover {
-  background: #e9b12b;
-  color: #102a5c;
-}
-
-.ft-column {
+.gf__app-info {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding-right: 24px;
 }
 
-.ft-column a {
-  margin-bottom: 9px;
+.gf__app-icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: block;
+  object-fit: cover;
+  background: #b3b3b3; /* shows only while the icon loads */
+  border-radius: 20px;
 }
 
-.ft-column a:hover,
-.ft-contact p:hover {
-  color: #e9b12b;
+.gf__app-info h3 {
+  margin: 0 0 4px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
 }
 
-.ft-contact p {
+.gf__app-info p {
+  margin: 0;
+  max-width: 400px;
+  font-size: clamp(14px, 1.25vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.gf__app-divider {
+  width: 1px;
+  height: 84px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.gf__app-download {
+  min-width: 0;
+  padding-left: clamp(24px, 7.5vw, 108px);
+}
+
+.gf__app-download p {
   display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  margin: 0 0 9px;
-  line-height: 1.5;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: clamp(14px, 1.2vw, 17px);
 }
 
-.ft-events {
+.gf__app-badges {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-weight: 800;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-.ft-bottom {
-  max-width: 1200px;
-  margin: 30px auto 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, .18);
+.gf__app-badges img {
+  display: block;
+  height: 50px;
+  width: auto;
+  max-width: 100%;
+}
+
+/* Bottom bar */
+.gf__bottom {
+  position: relative;
+  width: 100%;
+  background: #064c8d; /* covers the last 21px of the photo behind the card */
+  padding: clamp(40px, 4.4vw, 63px) var(--pad) clamp(28px, 3vw, 43px);
+}
+
+.gf__bottom-inner {
+  max-width: 1370px;
+  margin: 0 auto;
+  padding-top: clamp(28px, 3.3vw, 47px);
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  font-size: 11px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  font-weight: 400;
+  color: #c3d5eb;
 }
 
-.ft-bottom div {
-  display: flex;
-  gap: 16px;
+.gf__bottom-inner a + a {
+  margin-left: 24px;
 }
 
-@media (max-width: 980px) {
-  .ft-top {
-    grid-template-columns: 1.4fr repeat(2, 1fr);
+/* Responsive */
+@media (max-width: 1000px) {
+  .gf__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ft-events {
-    flex-direction: row;
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 620px) {
-  .ft-top {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .ft-brand,
-  .ft-events {
+  .gf__brand {
     grid-column: 1 / -1;
   }
 
-  .ft-bottom {
+  .gf__app {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
+    padding: 28px;
+  }
+
+  .gf__app-divider {
+    display: none;
+  }
+
+  .gf__app-download {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .gf__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gf__app {
+    border-radius: 28px;
+  }
+
+  .gf__app-info {
     flex-direction: column;
+    align-items: flex-start;
+    padding-right: 0;
+  }
+
+  .gf__bottom-inner a + a {
+    margin-left: 16px;
   }
 }

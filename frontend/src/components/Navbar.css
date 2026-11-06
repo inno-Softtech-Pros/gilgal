@@ -1,0 +1,254 @@
+.navbar {
+  --nav-height: clamp(60px, 5.6vw, 80px);
+  --nav-solid: #ffffff;
+  --nav-gold: #c88716;
+  --nav-gold-dark: #8a5a06;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* Pulls the page up so the hero image sits behind the transparent bar */
+  margin-bottom: calc(var(--nav-height) * -1);
+  background: transparent;
+  color: #fff;
+  transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+/* After scrolling: white bar with gold text */
+.navbar--solid {
+  background: var(--nav-solid);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.navbar--solid .navbar__link,
+.navbar--solid .navbar__toggle {
+  color: var(--nav-gold);
+}
+
+.navbar__inner {
+  height: var(--nav-height);
+  padding: 0 clamp(16px, 2.6vw, 38px) 0 clamp(16px, 3.4vw, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo img {
+  display: block;
+  width: clamp(48px, 4.6vw, 66px);
+  height: clamp(48px, 4.6vw, 66px);
+  object-fit: contain;
+}
+
+.navbar__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.7vw, 24px);
+}
+
+/* Each item is as tall as the bar, so the dropdown starts exactly at the bar's
+   bottom edge and the hover never drops while the pointer moves down to it. */
+.navbar__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--nav-height);
+}
+
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  text-decoration: none;
+  font-size: clamp(14px, 1.35vw, 19px);
+  transition: opacity 0.2s, color 0.25s;
+}
+
+.navbar__link:hover {
+  opacity: 0.75;
+}
+
+.navbar__caret {
+  transition: transform 0.2s;
+}
+
+.navbar__item--sub:hover .navbar__caret,
+.navbar__item--sub:has(:focus-visible) .navbar__caret {
+  transform: rotate(180deg);
+}
+
+/* Dropdown (glassmorphism) */
+.navbar__submenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  min-width: 230px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: linear-gradient(
+    145deg,
+    rgba(37, 42, 87, 0.42) 0%,
+    rgba(13, 59, 102, 0.32) 100%
+  );
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(147, 197, 253, 0.55);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(29, 78, 216, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 8px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+.navbar__item--sub:hover .navbar__submenu,
+.navbar__item--sub:has(:focus-visible) .navbar__submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.navbar__sublink {
+  display: block;
+  padding: 11px 16px;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: clamp(14px, 1.2vw, 17px);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.2s, color 0.25s;
+}
+
+.navbar__sublink:hover,
+.navbar__sublink:focus-visible {
+  background: rgba(147, 197, 253, 0.3);
+}
+
+/* White bar: a clean, nearly opaque white card with a gold accent, so the dark-gold
+   text stays readable no matter what is behind the dropdown. */
+.navbar--solid .navbar__submenu {
+  background: rgba(255, 255, 255, 0.97);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(200, 135, 22, 0.35);
+  border-top: 2px solid var(--nav-gold);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.navbar--solid .navbar__sublink {
+  color: var(--nav-gold-dark);
+  text-shadow: none;
+}
+
+.navbar--solid .navbar__sublink:hover,
+.navbar--solid .navbar__sublink:focus-visible {
+  background: rgba(200, 135, 22, 0.14);
+  color: #5e3b00;
+}
+
+.navbar__toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--nav-solid);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .navbar__menu--open {
+    max-height: 520px;
+    border-top: 1px solid rgba(200, 135, 22, 0.25);
+  }
+
+  .navbar__item {
+    display: block;
+    height: auto;
+  }
+
+  .navbar__link {
+    display: block;
+    padding: 14px 24px;
+    font-size: 18px;
+  }
+
+  .navbar__link:hover {
+    background: rgba(200, 135, 22, 0.1);
+    opacity: 1;
+  }
+
+  .navbar__caret {
+    display: none;
+  }
+
+  /* No hover on touch: the sub pages are always listed, indented under their parent */
+  .navbar__submenu,
+  .navbar--solid .navbar__submenu {
+    position: static;
+    min-width: 0;
+    padding: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .navbar__item--sub:hover .navbar__submenu,
+  .navbar__item--sub:has(:focus-visible) .navbar__submenu {
+    transform: none;
+  }
+
+  .navbar__sublink,
+  .navbar--solid .navbar__sublink {
+    padding: 12px 24px 12px 48px;
+    border-radius: 0;
+    color: var(--nav-gold);
+    font-size: 16px;
+    text-shadow: none;
+  }
+
+  .navbar__sublink:hover,
+  .navbar__sublink:focus-visible,
+  .navbar--solid .navbar__sublink:hover,
+  .navbar--solid .navbar__sublink:focus-visible {
+    background: rgba(200, 135, 22, 0.1);
+    color: var(--nav-gold);
+  }
+}

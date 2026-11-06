@@ -38,8 +38,36 @@
   flex: 1;
 }
 
+/* Pages with their own full-screen hero (.about-hero: About Us and Our Journey,
+   .gallery-hero: Gallery): the header takes no height of its own, so the nav
+   and logo sit on top of the hero image instead of above it.
+   For another page with its own hero, add its hero class inside :has( ... ). */
+.layout:has(.about-hero, .gallery-hero) > .hd-main {
+  height: 0;
+  overflow: visible;
+  background: none;
+  z-index: 20;
+}
+
+.layout:has(.about-hero, .gallery-hero) > .hd-main .hd-container {
+  height: 0;
+}
+
+/* Soft dark strip behind the nav so it stays readable on any photo */
+.layout:has(.about-hero, .gallery-hero) > .hd-main .hd-overlay {
+  inset: 0 0 auto 0;
+  height: 150px;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(6, 18, 42, .6) 0%, rgba(6, 18, 42, 0) 100%);
+  pointer-events: none;
+}
+
 @media (max-width: 760px) {
   .layout {
     min-height: 100dvh;
+  }
+
+  .layout:has(.about-hero, .gallery-hero) > .hd-main {
+    height: 0;
   }
 }

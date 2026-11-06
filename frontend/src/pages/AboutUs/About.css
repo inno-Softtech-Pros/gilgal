@@ -1,0 +1,456 @@
+/* Sizes are the 1440px design values, scaled with clamp() for smaller screens */
+.about {
+  --heading: #0d3b66;
+  --ink: #252a57;
+  --slate: #64748b;
+  --gold: #c88716;
+  --pad: clamp(16px, 2.4vw, 35px);
+
+  background: #fffdf8;
+  color: var(--slate);
+}
+
+.about-section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.about-heading {
+  margin: 0 0 clamp(24px, 3.7vw, 53px);
+  text-align: center;
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--heading);
+}
+
+.about-heading--light {
+  color: #fff;
+}
+
+/* Hero */
+.about-hero {
+  position: relative;
+  height: 100vh; /* fallback */
+  height: 100svh; /* hero fills the whole screen on load */
+  min-height: 420px;
+  background: #05080f center / cover no-repeat;
+}
+
+.about-hero__title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 72%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding-left: 0.3em;
+  text-align: center;
+  color: #fff;
+  font-size: clamp(32px, 4.4vw, 64px);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+}
+
+/* Our Pastors */
+.about-pastors {
+  padding-top: clamp(56px, 8.3vw, 120px);
+  padding-bottom: clamp(60px, 8.2vw, 118px);
+}
+
+.about-pastors__card {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr; /* was 1fr 1fr: photo column is wider now */
+  gap: 24px;
+  align-items: start;
+}
+
+.about-pastors__photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 662 / 403; /* was 675 / 796: matches the new landscape photo */
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.about-pastors__body {
+  font-size: clamp(15px, 1.53vw, 22px);
+  line-height: 1.8;
+}
+
+.about-pastors__body p {
+  margin: 0 0 0.75em;
+}
+
+.about-pastors__body .about-pastors__role {
+  margin: 0;
+  color: var(--ink);
+}
+
+.about-pastors__body .about-pastors__name {
+  margin: 0 0 0.45em;
+  font-size: clamp(24px, 2.65vw, 38px);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.about-pastors__verse {
+  font-style: italic;
+}
+
+.about-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: clamp(60px, 9.8vw, 140px);
+}
+
+.about-media__placeholder {
+  aspect-ratio: 675 / 443;
+  background: #c4c4c4;
+  border-radius: 24px;
+}
+
+/* App promo */
+.about-app {
+  background: #f5faff;
+}
+
+.about-app__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 15px var(--pad);
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.about-app__text {
+  padding-left: clamp(0px, 0.85vw, 12px);
+}
+
+.about-app__eyebrow {
+  margin: 0 0 0.8em;
+  font-size: clamp(16px, 1.53vw, 22px);
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.about-app__title {
+  margin: 0 0 0.45em;
+  font-size: clamp(26px, 3.05vw, 44px);
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.about-app__title span {
+  color: var(--gold);
+}
+
+.about-app__copy {
+  max-width: 600px;
+  margin: 0;
+  font-size: clamp(15px, 1.53vw, 22px);
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.about-app__download {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-top: 44px;
+}
+
+.about-app__download strong {
+  margin-right: 12px;
+  font-size: clamp(16px, 1.67vw, 24px);
+  color: var(--heading);
+}
+
+.about-app__download img {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+.about-app__phone img {
+  display: block;
+  width: 100%;
+  max-width: 735px;
+  height: auto;
+  margin-left: auto;
+}
+
+/* Our Belief
+   Selectors start with ".about" and every layout property is set explicitly,
+   so a ".belief-card" rule from any other stylesheet can't change these cards. */
+.about-beliefs {
+  padding-top: clamp(48px, 5.8vw, 84px);
+  padding-bottom: clamp(60px, 8.3vw, 120px);
+}
+
+.about .about-beliefs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: stretch;
+  gap: 39px 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.about .belief-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  border-radius: 40px;
+  background: linear-gradient(160deg, #fbf7e8 0%, #f6efd2 100%);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: left;
+  transform: none;
+}
+
+.about .belief-card img {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 442 / 184;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0; /* the card's own rounded corners clip the photo */
+  box-shadow: none;
+}
+
+.about .belief-card__body {
+  display: block;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 38px 32px 30px;
+  text-align: left;
+}
+
+.about .belief-card h3 {
+  position: static;
+  width: auto;
+  margin: 0 0 12px;
+  padding: 0;
+  text-align: left;
+  transform: none;
+  font-size: clamp(18px, 1.53vw, 22px);
+  color: var(--ink);
+}
+
+.about .belief-card p {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: clamp(13px, 0.97vw, 14px);
+  line-height: 1.85;
+}
+
+/* Our Doctrinal Foundation */
+.about-doctrine {
+  background: linear-gradient(
+    135deg,
+    #052a63 0%,
+    #0a4096 33%,
+    #bdd7ff 50%,
+    #0a4096 75%,
+    #052a63 100%
+  );
+}
+
+.about-doctrine__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(48px, 5vw, 72px) var(--pad) clamp(40px, 4.4vw, 63px);
+}
+
+.about-doctrine__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px 25px;
+}
+
+.doctrine-card {
+  padding: 35px 34px 28px;
+  background: #fff7e6;
+  border: 1px solid #e8d3a0;
+  border-radius: 36px;
+  color: #000;
+}
+
+.doctrine-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 59px;
+  height: 59px;
+  border-radius: 50%;
+  background: #f5b942;
+  color: #000;
+}
+
+.doctrine-card h3 {
+  margin: 22px 0 0;
+  font-size: clamp(18px, 1.67vw, 24px);
+  color: #102a56;
+}
+
+.doctrine-card p {
+  margin: 0;
+}
+
+.doctrine-card .doctrine-card__ref {
+  margin-top: 14px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.doctrine-card .doctrine-card__text {
+  margin-top: 12px;
+  font-size: clamp(13px, 1.04vw, 15px);
+  line-height: 1.75;
+}
+
+.about-doctrine__summary {
+  max-width: 905px;
+  margin: clamp(32px, 4vw, 57px) auto 0;
+  padding: clamp(24px, 3.6vw, 52px) clamp(20px, 3.3vw, 48px);
+  text-align: center;
+  font-size: clamp(18px, 1.94vw, 28px);
+  font-weight: 700;
+  line-height: 1.5;
+  color: #fff;
+  background: linear-gradient(135deg, #2c5088 0%, #052a63 100%);
+  border: 4px solid #f0d79a;
+  border-radius: 30px;
+}
+
+/* FAQ */
+.about-faq {
+  padding-top: clamp(56px, 8.9vw, 128px);
+  padding-bottom: clamp(60px, 8.3vw, 119px);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.faq-item {
+  overflow: hidden; /* clips the gold header to the rounded corners */
+  border: 1.5px solid #323761;
+  border-radius: 40px;
+}
+
+/* Open state: gold question bar over a light answer panel */
+.faq-item--open {
+  background: #fffdf8;
+  border-color: #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item--open .faq-item__question {
+  background: #f5b942;
+}
+
+.faq-item__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 81px;
+  padding: 12px clamp(20px, 3.5vw, 50px) 12px clamp(20px, 3.3vw, 48px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(16px, 1.6vw, 23px);
+  font-weight: 700;
+  text-align: left;
+  color: var(--ink);
+}
+
+.faq-item__question svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.faq-item--open .faq-item__question svg {
+  transform: rotate(180deg);
+}
+
+.faq-item__answer {
+  padding: 28px clamp(20px, 3.3vw, 48px) 28px;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.faq-item__answer p {
+  margin: 0;
+}
+
+.faq-item__answer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-pastors__card,
+  .about-app__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .about .about-beliefs__grid,
+  .about-doctrine__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-app__phone img {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .about .about-beliefs__grid,
+  .about-doctrine__grid,
+  .about-media {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-hero {
+    min-height: 320px;
+  }
+
+  .about .belief-card {
+    border-radius: 28px;
+  }
+
+  .faq-item {
+    border-radius: 28px;
+  }
+}
