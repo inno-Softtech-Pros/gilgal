@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import About from "./AboutUs/About";
-import Journey from "./AboutUs/Journey";
-import Leadership from "./AboutUs/Leadership";
-import Gallery from "./Gallery/Gallery";
+import About from "./pages/AboutUs/About";
+import Journey from "./pages/AboutUs/Journey";
+import Leadership from "./pages/AboutUs/Leadership";
+import Gallery from "./pages/Gallery/Gallery";
 
 // Temporary placeholder until each page is built.
 // The navbar is transparent over the top of the page, so give it a dark backdrop.
