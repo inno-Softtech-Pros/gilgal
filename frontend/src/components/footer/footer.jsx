@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowDownCircle, MapPin, Phone } from "lucide-react";
 import logo from "../../assets/logo-light.png";
-import "./Footer.css";
+import "./footer.css";
 
 const IMG = "/images/footer";
 
