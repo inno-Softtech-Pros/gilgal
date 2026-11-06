@@ -1,0 +1,130 @@
+/* frontend/src/pages/notFound.css */
+.nf-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 64px 20px;
+  background: #f7f9fc;
+  font-family: "Quicksand", "Segoe UI", sans-serif;
+}
+
+.nf-card {
+  position: relative;
+  z-index: 2;
+  width: min(620px, 100%);
+  text-align: center;
+  padding: 48px 40px;
+  border: 1px solid #dde6f2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 24px 60px rgba(23, 48, 107, .12);
+}
+
+.nf-code {
+  margin: 0;
+  color: #e9b12b;
+  font-size: clamp(72px, 14vw, 112px);
+  font-weight: 800;
+  line-height: .85;
+  letter-spacing: .02em;
+}
+
+.nf-eyebrow {
+  margin: 24px 0 8px;
+  color: #174887;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.nf-card h1 {
+  margin: 0;
+  color: #17306b;
+  font-size: clamp(34px, 6vw, 52px);
+  line-height: 1.05;
+}
+
+.nf-copy {
+  max-width: 470px;
+  margin: 18px auto 0;
+  color: #5b6680;
+  line-height: 1.7;
+}
+
+.nf-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.nf-actions a {
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nf-primary {
+  background: #174887;
+  color: #fff;
+}
+
+.nf-secondary {
+  border: 1px solid #c8d4e6;
+  background: #fff;
+  color: #17306b;
+}
+
+.nf-actions a:hover {
+  transform: translateY(-2px);
+}
+
+.nf-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(23, 72, 135, .12);
+}
+
+.nf-orbit-one {
+  width: 420px;
+  height: 420px;
+  left: -230px;
+  bottom: -260px;
+}
+
+.nf-orbit-two {
+  width: 300px;
+  height: 300px;
+  right: -150px;
+  top: -170px;
+}
+
+@media (max-width: 600px) {
+  .nf-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 38px 14px;
+  }
+
+  .nf-card {
+    padding: 38px 20px;
+  }
+
+  .nf-actions {
+    flex-direction: column;
+  }
+
+  .nf-actions a {
+    width: 100%;
+  }
+}

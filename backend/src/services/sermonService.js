@@ -1,3 +1,4 @@
+// backend/src/services/sermonService.js
 const sermonRepository = require("../repositories/sermonRepository");
 
 const validateLimit = (limit) => {
@@ -12,10 +13,8 @@ const validateLimit = (limit) => {
   return parsedLimit;
 };
 
-const getLatestSermons = async (churchId, limit = 5) =>
-  sermonRepository.getLatestSermons(churchId, validateLimit(limit));
+const getLatestSermons = async (churchId, limit = 5) => sermonRepository.getLatestSermons(churchId, validateLimit(limit));
 
-const getLatestMusic = async (churchId, limit = 5) =>
-  sermonRepository.getLatestMusic(churchId, validateLimit(limit));
+const getLatestMusic = async (churchId, limit = 5) => sermonRepository.getLatestMusic(churchId, validateLimit(limit));
 
 module.exports = { getLatestSermons, getLatestMusic };

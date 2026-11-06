@@ -1,3 +1,4 @@
+// backend/src/controllers/sermonController.js
 const sermonService = require("../services/sermonService");
 
 const handle = (serviceFn, label) => async (req, res) => {
@@ -12,7 +13,7 @@ const handle = (serviceFn, label) => async (req, res) => {
     if (error.name === "ResourceNotFoundException") {
       return res.status(404).json({
         success: false,
-        message: "No data found for this church",
+        message: "No data found for this church"
       });
     }
 
@@ -20,18 +21,18 @@ const handle = (serviceFn, label) => async (req, res) => {
       // IAM misconfiguration: log it, don't leak details to the client
       return res.status(500).json({
         success: false,
-        message: `Failed to fetch ${label}`,
+        message: `Failed to fetch ${label}`
       });
     }
 
     return res.status(error.statusCode || 500).json({
       success: false,
-      message: error.message || `Failed to fetch ${label}`,
+      message: error.message || `Failed to fetch ${label}`
     });
   }
 };
 
 module.exports = {
   getLatestSermons: handle(sermonService.getLatestSermons, "latest sermons"),
-  getLatestMusic: handle(sermonService.getLatestMusic, "latest music"),
+  getLatestMusic: handle(sermonService.getLatestMusic, "latest music")
 };

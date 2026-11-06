@@ -1,7 +1,10 @@
+// backend/index.js
 require("dotenv").config(); // must be the very first line
 
 const express = require("express");
 const cors = require("cors");
+
+const calendarRoutes = require("./src/routes/calendarRoutes");
 const sermonRoutes = require("./src/routes/sermonRoutes");
 
 const app = express();
@@ -12,6 +15,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello, Express is working!"));
 
+app.use("/calendar", calendarRoutes);
 app.use("/sermons", sermonRoutes);
 
 // Catch-all: runs only when no route above matched
