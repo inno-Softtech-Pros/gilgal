@@ -1,8 +1,5 @@
 import { useEffect } from "react";
-import "./About.css";
 import "./Journey.css";
-
-const IMG = "/images/about";
 
 // Photos live in frontend/public/images/about/ (served from the site root).
 const FOUNDERS_IMG = "/images/about/pastor-parents.jpg";
@@ -32,14 +29,6 @@ export default function Journey() {
 
   return (
     <div className="journey">
-      {/* Hero: same classes as the About Us page */}
-      <section
-        className="about-hero"
-        style={{ backgroundImage: `url(${IMG}/hero.jpg)` }}
-      >
-        <h1 className="about-hero__title">OUR JOURNEY</h1>
-      </section>
-
       <div className="journey__container">
         <h2 className="journey__heading">Our Journey</h2>
 
