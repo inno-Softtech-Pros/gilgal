@@ -7,7 +7,7 @@ const sermonRoutes = require("./src/routes/sermonRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: ["http://localhost:5173"] })); // your frontend's port
+   app.use(cors({ origin: ["http://localhost:5173", "https://gilgal-seven.vercel.app"] }));; // your frontend's port
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello, Express is working!"));
