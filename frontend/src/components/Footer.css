@@ -1,0 +1,287 @@
+/* Sizes are the 1440px design values, scaled with clamp() for smaller screens */
+.footer {
+  --pad: clamp(16px, 2.4vw, 35px);
+
+  background: #064c8d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Photo area */
+.footer__top {
+  position: relative;
+  padding-top: clamp(32px, 3.5vw, 50px);
+  background: #0a4479 url("/images/footer/footer-bg.jpg") center 55% / cover no-repeat;
+}
+
+/* Blue overlay: fill #064C8E at 82% opacity (from the design) */
+.footer__top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #064c8e;
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.footer__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  display: grid;
+  grid-template-columns: 2.7fr 1fr 1.25fr 1.25fr 2.1fr 0.7fr;
+  column-gap: 24px;
+  row-gap: 32px;
+  align-items: start;
+}
+
+/* Brand */
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer__logo img {
+  height: clamp(72px, 7.6vw, 110px);
+  width: auto;
+}
+
+.footer__logo strong {
+  display: block;
+  font-size: clamp(28px, 2.8vw, 40px);
+  line-height: 1.2;
+}
+
+.footer__logo span {
+  font-size: clamp(12px, 1.1vw, 16px);
+}
+
+.footer__brand p {
+  max-width: 19em;
+  margin: 22px 0 18px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.75;
+}
+
+.footer__social {
+  display: flex;
+  gap: 9px;
+  padding-left: 3px;
+}
+
+.footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #f5b800;
+  color: #074278;
+  border-radius: 4px;
+}
+
+/* Link columns */
+.footer__col {
+  padding-top: 14px;
+}
+
+.footer__col h4 {
+  margin: 0 0 26px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+}
+
+.footer__col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 125px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.85;
+}
+
+/* Contact */
+.footer__contact {
+  grid-column: auto;
+}
+
+.footer__contact p {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 2;
+}
+
+.footer__contact svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Give / Events / Gallery */
+.footer__quick {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+}
+
+/* App download card */
+.footer__app {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+  width: calc(100% - 2 * var(--pad));
+  max-width: 1104px;
+  min-height: 136px;
+  margin: clamp(28px, 3.1vw, 45px) auto -21px;
+  padding: 0 40px;
+  background: rgba(6, 54, 112, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.footer__app-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 24px;
+}
+
+.footer__app-icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: block;
+  object-fit: cover;
+  background: #b3b3b3; /* shows only while the icon loads */
+  border-radius: 20px;
+}
+
+.footer__app-info h3 {
+  margin: 0 0 4px;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.3;
+}
+
+.footer__app-info p {
+  margin: 0;
+  max-width: 400px;
+  font-size: clamp(14px, 1.25vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.footer__app-divider {
+  width: 1px;
+  height: 84px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.footer__app-download {
+  padding-left: clamp(24px, 7.5vw, 108px);
+}
+
+.footer__app-download p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-size: clamp(14px, 1.2vw, 17px);
+}
+
+.footer__app-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer__app-badges img {
+  display: block;
+  height: 50px;
+  width: auto;
+}
+
+/* Bottom bar */
+.footer__bottom {
+  position: relative;
+  background: #064c8d; /* covers the last 21px of the photo behind the card */
+  padding: clamp(40px, 4.4vw, 63px) var(--pad) clamp(28px, 3vw, 43px);
+}
+
+.footer__bottom-inner {
+  max-width: 1370px;
+  margin: 0 auto;
+  padding-top: clamp(28px, 3.3vw, 47px);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  font-weight: 400;
+  color: #c3d5eb;
+}
+
+.footer__bottom-inner a + a {
+  margin-left: 24px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .footer__inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer__app {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    padding: 28px;
+  }
+
+  .footer__app-divider {
+    display: none;
+  }
+
+  .footer__app-download {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__app {
+    border-radius: 28px;
+  }
+
+  .footer__app-info {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 0;
+  }
+}

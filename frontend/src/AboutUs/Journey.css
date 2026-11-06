@@ -1,0 +1,118 @@
+.journey {
+  --j-navy: #0d3b66;
+  --j-text: #5a7088;
+  --j-cream: #f7edd3;
+  --j-bg: #fdfcf8;
+
+  background: var(--j-bg);
+  color: var(--j-text);
+}
+
+/* The hero comes from About.css (.about-hero) so it matches the About Us page. */
+
+/* ---------- Content ---------- */
+.journey__container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 2.4vw, 32px) clamp(48px, 7vw, 100px);
+}
+
+.journey__heading {
+  margin: 0 0 clamp(32px, 4vw, 56px);
+  text-align: center;
+  color: var(--j-navy);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 700;
+}
+
+.journey__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+}
+
+.journey__row--reverse {
+  margin-top: clamp(40px, 6vw, 90px);
+}
+
+.journey__text p,
+.journey__wide p {
+  margin: 0 0 1.4em;
+  font-size: clamp(16px, 1.45vw, 20px);
+  line-height: 1.75;
+}
+
+.journey__text ul {
+  margin: 0 0 1.4em;
+  padding-left: 1.2em;
+  font-size: clamp(16px, 1.45vw, 20px);
+  line-height: 1.75;
+}
+
+.journey__text li {
+  margin-bottom: 0.2em;
+}
+
+.journey__text li::marker {
+  color: var(--j-text);
+}
+
+.journey__wide {
+  margin-top: clamp(8px, 2vw, 24px);
+}
+
+/* ---------- Photos: rounded image over a tilted cream card ---------- */
+.journey__media {
+  position: relative;
+  margin: 0;
+  justify-self: center;
+  width: 100%;
+  max-width: 520px;
+}
+
+.journey__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--j-cream);
+  border-radius: 22px;
+  transform: translate(7%, 6%) rotate(3deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.journey__media--left::before {
+  transform: translate(-7%, 6%) rotate(-3deg);
+}
+
+.journey__media img {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 0.92;
+  object-fit: cover;
+  border-radius: 22px;
+  transform: rotate(-2deg);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.journey__media--left img {
+  transform: rotate(2deg);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  .journey__row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Photo first on small screens for the second block, text first for the first */
+  .journey__row--reverse .journey__media {
+    order: -1;
+  }
+
+  .journey__media {
+    max-width: 440px;
+    margin-bottom: 16px;
+  }
+}
