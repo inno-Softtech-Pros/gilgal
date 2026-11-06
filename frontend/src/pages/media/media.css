@@ -182,8 +182,8 @@
 .sm-thumb {
   position: relative;
   display: block;
+  flex: none;
   width: 100%;
-  min-height: 100%;
   aspect-ratio: 16 / 9;
   padding: 0;
   border: 0;
@@ -192,8 +192,9 @@
 }
 
 .sm-feature .sm-thumb {
-  aspect-ratio: auto;
+  height: 100%;
   min-height: 300px;
+  aspect-ratio: auto;
 }
 
 .sm-thumb img {
@@ -461,7 +462,7 @@
 @media (max-width: 900px) {
   .sm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sm-feature { grid-template-columns: 1fr; }
-  .sm-feature .sm-thumb { min-height: 0; aspect-ratio: 16 / 9; }
+  .sm-feature .sm-thumb { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
 }
 
 @media (max-width: 600px) {
