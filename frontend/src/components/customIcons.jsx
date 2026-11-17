@@ -1,4 +1,5 @@
 // frontend/src/components/customIcons.jsx
+
 // Icon Index: YouTube, Facebook, Instagram, and custom ministry icons
 
 const YoutubeIcon = ({ size = 24, ...props }) => (

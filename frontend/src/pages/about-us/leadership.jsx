@@ -1,7 +1,14 @@
 // frontend/src/pages/about-us/leadership.jsx
 import { useEffect } from "react";
 // import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./leadership.css";
+
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/about-us-hero.jpg",
+  title: "Leadership Team",
+  subtitle: "<Replace with suitable subtitle>"
+};
 
 /* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = "/images/about";
@@ -17,7 +24,8 @@ const TEAM = [
 ];
 
 export default function Leadership() {
-  // Always open the page from the top when arriving from the navbar
+  useFeatureHeader(FEATURE_HEADER);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

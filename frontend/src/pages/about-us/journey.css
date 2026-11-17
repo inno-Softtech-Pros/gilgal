@@ -1,15 +1,12 @@
 /* frontend/src/pages/about-us/journey.css */
 .journey {
-  --j-navy: #0d3b66;
-  --j-text: #5a7088;
-  --j-cream: #f7edd3;
-  --j-bg: #fdfcf8;
-
+  --j-navy: hsl(209, 77%, 23%);
+  --j-text: hsl(211, 20%, 44%);
+  --j-cream: hsl(43, 69%, 90%);
+  --j-bg: hsl(48, 56%, 98%);
   background: var(--j-bg);
   color: var(--j-text);
 }
-
-/* The hero comes from About.css (.about-hero) so it matches the About Us page. */
 
 /* ---------- Content ---------- */
 .journey__container {
@@ -79,7 +76,7 @@
   background: var(--j-cream);
   border-radius: 22px;
   transform: translate(7%, 6%) rotate(3deg);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.08);
 }
 
 .journey__media--left::before {
@@ -94,7 +91,7 @@
   object-fit: cover;
   border-radius: 22px;
   transform: rotate(-2deg);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 26px hsla(0, 0%, 0%, 0.18);
 }
 
 .journey__media--left img {

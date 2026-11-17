@@ -1,18 +1,84 @@
 // frontend/src/components/header/header.jsx
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { AuthProvider } from "../../context/auth.jsx";
 import "./header.css";
 
+// [label, path, optional dropdown items]
 const LINKS = [
   ["Home", "/home"],
-  ["About Us", "/about-us"],
+  ["About Us", "/about-us", [["Our Journey", "/about-us/journey"]]],
   ["Events", "/events"],
   ["Media", "/media"],
   ["Gallery", "/gallery"],
   ["Contact", "/contact-us"]
 ];
+
+function NavDropdown({ label, path, items, onNavigate }) {
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+
+  // The group is highlighted on the parent page and any dropdown page
+  const groupActive = [path, ...items.map(([, to]) => to)].some((to) => pathname === to || pathname.startsWith(`${to}/`));
+
+  // Close when clicking outside or pressing Esc
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const handleNavigate = (e) => {
+    setOpen(false);
+    e.currentTarget.blur(); // lets the hover menu close after a click
+    onNavigate();
+  };
+
+  return (
+    <div ref={wrapRef} className={`hd-dropdown ${open ? "is-open" : ""} ${groupActive ? "active" : ""}`}>
+      <NavLink className="hd-nav-link" to={path} onClick={handleNavigate}>
+        {label}
+      </NavLink>
+      <button
+        type="button"
+        className="hd-dropdown-toggle"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-label={`${label} menu`}
+        onClick={() => setOpen((o) => !o)}
+      >
+        <ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
+      </button>
+
+      <ul className="hd-dropdown-menu" role="menu">
+        {items.map(([itemLabel, to]) => (
+          <li key={to} role="none">
+            <NavLink
+              role="menuitem"
+              className={({ isActive }) => (isActive ? "hd-dropdown-item active" : "hd-dropdown-item")}
+              to={to}
+              onClick={handleNavigate}
+            >
+              {itemLabel}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function Header({ backgroundImage, title, subtitle }) {
   const { name, isAuthenticated, clearUser } = AuthProvider.useAuth();
@@ -24,12 +90,18 @@ export default function Header({ backgroundImage, title, subtitle }) {
     await signOut();
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className="hd-main" style={backgroundImage ? { "--hd-background-image": `url("${backgroundImage}")` } : undefined}>
       <div className="hd-overlay" />
       <div className="hd-container">
         <NavLink className="hd-logo-box" to="/home" aria-label="Gilgal AG home">
-          <img className="hd-logo-img" src="/images/logos/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
+          <img
+            className="hd-logo-img"
+            src="/images/logos/gagiwc_logo_white-text_transp-bg.png"
+            alt="Gilgal AG International Worship Centre"
+          />
         </NavLink>
 
         <button
@@ -44,17 +116,21 @@ export default function Header({ backgroundImage, title, subtitle }) {
 
         <div className={`hd-topbar ${menuOpen ? "is-open" : ""}`}>
           <nav className={`hd-nav-list ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
-            {LINKS.map(([label, path]) => (
-              <NavLink
-                key={path}
-                className={({ isActive }) => (isActive ? "hd-nav-link active" : "hd-nav-link")}
-                to={path}
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </NavLink>
-            ))}
-            <NavLink className="hd-give-button" to="/donations" onClick={() => setMenuOpen(false)}>
+            {LINKS.map(([label, path, items]) =>
+              items ? (
+                <NavDropdown key={path} label={label} path={path} items={items} onNavigate={closeMenu} />
+              ) : (
+                <NavLink
+                  key={path}
+                  className={({ isActive }) => (isActive ? "hd-nav-link active" : "hd-nav-link")}
+                  to={path}
+                  onClick={closeMenu}
+                >
+                  {label}
+                </NavLink>
+              )
+            )}
+            <NavLink className="hd-give-button" to="/donations" onClick={closeMenu}>
               Give
             </NavLink>
           </nav>
@@ -67,7 +143,7 @@ export default function Header({ backgroundImage, title, subtitle }) {
               </button>
             </div>
           ) : (
-            <NavLink className="hd-signin-button" to="/coming-soon" onClick={() => setMenuOpen(false)}>
+            <NavLink className="hd-signin-button" to="/coming-soon" onClick={closeMenu}>
               Sign In
             </NavLink>
           )}

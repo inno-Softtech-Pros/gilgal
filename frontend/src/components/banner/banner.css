@@ -2,8 +2,8 @@
 .banner {
   position: relative;
   width: 100%;
-  background-color: var(--banner-bg, #1a1a2e);
-  color: var(--banner-color, #fff);
+  background-color: var(--banner-bg, hsl(240, 28%, 14%));
+  color: var(--banner-color, hsl(0, 0%, 100%));
 }
 
 .banner__close {
