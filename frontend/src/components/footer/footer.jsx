@@ -9,7 +9,7 @@ const COLUMNS = [
     links: [
       ["Our Mission", "/home"],
       ["Our Vision", "/home"],
-      ["Our Belief", "/home"],
+      ["Our Belief", "/home"]
     ]
   },
   {

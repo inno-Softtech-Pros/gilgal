@@ -34,7 +34,7 @@
   min-width: 0;
 }
 
-.layout-content > .feature-page {
+.layout-content>.feature-page {
   flex: 1;
 }
 

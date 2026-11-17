@@ -15,12 +15,12 @@ const MONTHS = ["January", "February", "March", "April", "May", "June", "July", 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const TONES = [
-  { name: "purple", color: "#8f78d4" },
-  { name: "green", color: "#58b778" },
-  { name: "orange", color: "#d89a52" },
-  { name: "pink", color: "#e87982" },
-  { name: "blue", color: "#5797c7" },
-  { name: "yellow", color: "#d7b657" }
+  { name: "purple", color: "hsl(255, 52%, 65%)" },
+  { name: "green", color: "hsl(140, 40%, 53%)" },
+  { name: "orange", color: "hsl(32, 63%, 58%)" },
+  { name: "pink", color: "hsl(355, 71%, 69%)" },
+  { name: "blue", color: "hsl(206, 50%, 56%)" },
+  { name: "yellow", color: "hsl(45, 62%, 59%)" }
 ];
 
 const transformEvent = (event, index) => {

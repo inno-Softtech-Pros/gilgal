@@ -7,7 +7,7 @@
   place-items: center;
   overflow: hidden;
   padding: 64px 20px;
-  background: #f7f9fc;
+  background: hsl(216, 45%, 98%);
   font-family: "Quicksand", "Segoe UI", sans-serif;
 }
 
@@ -17,15 +17,15 @@
   width: min(620px, 100%);
   text-align: center;
   padding: 48px 40px;
-  border: 1px solid #dde6f2;
+  border: 1px solid hsl(214, 45%, 91%);
   border-radius: 8px;
-  background: rgba(255, 255, 255, .92);
-  box-shadow: 0 24px 60px rgba(23, 48, 107, .12);
+  background: hsla(0, 0%, 100%, 0.92);
+  box-shadow: 0 24px 60px hsla(222, 65%, 25%, 0.12);
 }
 
 .nf-code {
   margin: 0;
-  color: #e9b12b;
+  color: hsl(42, 81%, 54%);
   font-size: clamp(72px, 14vw, 112px);
   font-weight: 800;
   line-height: .85;
@@ -34,7 +34,7 @@
 
 .nf-eyebrow {
   margin: 24px 0 8px;
-  color: #174887;
+  color: hsl(214, 71%, 31%);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: .16em;
@@ -43,7 +43,7 @@
 
 .nf-card h1 {
   margin: 0;
-  color: #17306b;
+  color: hsl(222, 65%, 25%);
   font-size: clamp(34px, 6vw, 52px);
   line-height: 1.05;
 }
@@ -51,7 +51,7 @@
 .nf-copy {
   max-width: 470px;
   margin: 18px auto 0;
-  color: #5b6680;
+  color: hsl(222, 17%, 43%);
   line-height: 1.7;
 }
 
@@ -75,14 +75,14 @@
 }
 
 .nf-primary {
-  background: #174887;
-  color: #fff;
+  background: hsl(214, 71%, 31%);
+  color: hsl(0, 0%, 100%);
 }
 
 .nf-secondary {
-  border: 1px solid #c8d4e6;
-  background: #fff;
-  color: #17306b;
+  border: 1px solid hsl(216, 38%, 84%);
+  background: hsl(0, 0%, 100%);
+  color: hsl(222, 65%, 25%);
 }
 
 .nf-actions a:hover {
@@ -92,7 +92,7 @@
 .nf-orbit {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(23, 72, 135, .12);
+  border: 1px solid hsla(214, 71%, 31%, 0.12);
 }
 
 .nf-orbit-one {

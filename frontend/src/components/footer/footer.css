@@ -1,7 +1,7 @@
 /* frontend/src/components/footer/footer.css */
 .ft-main {
-  background: #174887;
-  color: rgba(255, 255, 255, .86);
+  background: hsl(214, 71%, 31%);
+  color: hsla(0, 0%, 100%, 0.86);
   padding: 38px clamp(20px, 4vw, 64px) 18px;
   font-family: "Quicksand", "Segoe UI", sans-serif;
   font-size: 13px;
@@ -14,7 +14,7 @@
 
 .ft-main h4 {
   margin: 0 0 14px;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   font-size: 16px;
 }
 
@@ -41,7 +41,7 @@
 
 .ft-brand-head strong {
   display: block;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   font-size: 23px;
   line-height: 1.05;
 }
@@ -70,13 +70,13 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .12);
-  color: #fff;
+  background: hsla(0, 0%, 100%, 0.12);
+  color: hsl(0, 0%, 100%);
 }
 
 .ft-social a:hover {
-  background: #e9b12b;
-  color: #102a5c;
+  background: hsl(42, 81%, 54%);
+  color: hsl(219, 70%, 21%);
 }
 
 .ft-column {
@@ -90,7 +90,7 @@
 
 .ft-column a:hover,
 .ft-contact p:hover {
-  color: #e9b12b;
+  color: hsl(42, 81%, 54%);
 }
 
 .ft-contact p {
@@ -112,7 +112,7 @@
   max-width: 1200px;
   margin: 30px auto 0;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, .18);
+  border-top: 1px solid hsla(0, 0%, 100%, 0.18);
   display: flex;
   justify-content: space-between;
   gap: 16px;

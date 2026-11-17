@@ -1,3 +1,4 @@
+/* frontend/src/pages/about-us/leadership.css */
 .leadership {
   --l-navy: #0d3b66;
   --l-name: #252a57;
@@ -84,12 +85,10 @@
 /* ---------- Our Leadership band ---------- */
 .leadership__about {
   padding: clamp(36px, 5vw, 70px) clamp(16px, 2.4vw, 32px);
-  background: radial-gradient(
-    ellipse at 25% 50%,
-    #fffdf6 0%,
-    #f8efd0 55%,
-    #f3e6b8 100%
-  );
+  background: radial-gradient(ellipse at 25% 50%,
+      #fffdf6 0%,
+      #f8efd0 55%,
+      #f3e6b8 100%);
 }
 
 .leadership__about-inner {

@@ -29,8 +29,8 @@ body {
   text-align: left;
   font-family: "Andika", system-ui, -apple-system, "Segoe UI", sans-serif;
   line-height: 1.5;
-  background: #fffdf8;
-  color: #252a57;
+  background: hsl(43, 100%, 99%);
+  color: hsl(234, 40%, 24%);
   -webkit-font-smoothing: antialiased;
 }
 
