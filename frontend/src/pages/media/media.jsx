@@ -4,24 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import "./media.css";
 
 /* ---------- Config ---------- */
-const API_URL = import.meta.env.VITE_API_URL; // CRA: process.env.REACT_APP_API_URL
-const CHURCH_ID = import.meta.env.VITE_CHURCH_ID; // CRA: process.env.REACT_APP_CHURCH_ID
+const API_URL = import.meta.env.VITE_API_URL;
+
 const PAGE_SIZE = 9;
-const DEFAULT_SPEAKER = "Rev. Denny Sam"; // used until the API returns a speaker field
+const DEFAULT_SPEAKER = "Rev. Denny Sam"; // used when the title has no speaker in it
 const CHANNEL_NAME = "Gilgal AG International Worship Centre";
 
-const IMG = {
-  logo: "/images/logo.png",
-  hero: "/images/media-hero.jpg"
-};
-
-const NAV_LINKS = ["Home", "About Us", "Media", "Gallery", "Events", "Contact", "Give"];
-
-const FOOTER_COLS = [
-  { title: "Home", links: ["Our Mission", "Our Vision", "Our Belief", "Events"] },
-  { title: "About Us", links: ["Our Pastors", "Our Belief", "Our Doctrinal Foundation", "FAQs"] },
-  { title: "Media", links: ["Live Stream", "Sermon", "Praise & Worship", "Podcast"] }
-];
+// Small avatar next to the channel name on the featured card.
+// Any image inside /public works, change the path if you prefer another logo.
+const CHANNEL_AVATAR = "/gagiwc_logo_white-text_transp-bg.png";
 
 // path = endpoint on your backend; tabs without a path show "coming soon"
 const TABS = [
@@ -58,6 +49,32 @@ function getPages(current, total) {
   return out;
 }
 
+// "Stones to Sight I Rev. Denny Sam I Gilgal AG Worship Centre I Bangalore"
+// -> title "Stones to Sight", speaker "Rev. Denny Sam"
+const parseTitle = (raw = "") => {
+  const parts = raw.split(/\s+[I|]\s+/);
+  if (parts.length >= 4) {
+    return { title: parts.slice(0, -3).join(" I "), speaker: parts[parts.length - 3] };
+  }
+  return { title: raw, speaker: "" };
+};
+
+// Keep only the first paragraph of the YouTube description
+const shortDescription = (text = "") => text.split(/\n\s*\n/)[0].trim();
+
+const normalize = (item) => {
+  const { title, speaker } = parseTitle(item.title);
+  return {
+    ...item,
+    title,
+    speaker: item.speaker || speaker,
+    description: shortDescription(item.description),
+  };
+};
+
+// The API sends YouTube's small thumbnail, so ask for the HD one first
+const bestThumb = (url = "") => url.replace("/mqdefault.jpg", "/maxresdefault.jpg");
+
 /* ---------- Data hook ---------- */
 function useMedia(path, reloadKey) {
   const requestKey = `${path}:${reloadKey}`;
@@ -70,12 +87,12 @@ function useMedia(path, reloadKey) {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch(`${API_URL}/sermons/${CHURCH_ID}/${path}?limit=50`, { signal: controller.signal })
+    fetch(`${API_URL}/sermons/${path}?limit=50`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error("Request failed");
         return res.json();
       })
-      .then(({ data }) => setState({ requestKey, items: data || [], status: "ready" }))
+      .then(({ data }) => setState({ items: (data || []).map(normalize), status: "ready" }))
       .catch((err) => {
         if (err.name !== "AbortError") {
           setState({ requestKey, items: [], status: "error" });
@@ -110,9 +127,26 @@ const LinkIcon = () => (
 
 /* ---------- Cards ---------- */
 function Thumb({ item, onPlay, children }) {
+  const fallback = item.thumbnail;
+
   return (
     <button type="button" className="sm-thumb" onClick={() => onPlay(item)} aria-label={`Play ${item.title}`}>
-      {item.thumbnail && <img src={item.thumbnail} alt="" loading="lazy" />}
+      {fallback && (
+        <img
+          src={bestThumb(fallback)}
+          alt=""
+          loading="lazy"
+          onLoad={(e) => {
+            // YouTube returns a tiny placeholder when no HD version exists
+            if (e.currentTarget.naturalWidth <= 120 && e.currentTarget.src !== fallback) {
+              e.currentTarget.src = fallback;
+            }
+          }}
+          onError={(e) => {
+            if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
+          }}
+        />
+      )}
       {children}
     </button>
   );
@@ -127,7 +161,7 @@ function FeaturedCard({ item, tab, onPlay }) {
         <h2>{item.title}</h2>
         {item.description && <p className="sm-feature__desc">{item.description}</p>}
         <div className="sm-channel">
-          <img src={IMG.logo} alt="" />
+          {CHANNEL_AVATAR && <img src={CHANNEL_AVATAR} alt="" />}
           <div>
             <strong>{CHANNEL_NAME}</strong>
             <small>{formatDate(item.date)}</small>
@@ -208,7 +242,7 @@ function MediaList({ tab }) {
   const current = Math.min(page, totalPages);
   const pageItems = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
 
-  // Dropdowns only appear once the API sends topic / speaker / series values
+  // Dropdowns only appear when the data has topic / speaker / series values
   const dropdowns = [
     { key: "topic", label: "Topic", options: unique(rest.map((i) => i.topic)) },
     { key: "speaker", label: "Speaker", options: unique(rest.map((i) => i.speaker)) },
@@ -235,6 +269,7 @@ function MediaList({ tab }) {
     setTimeout(() => setToast(""), 2000);
   };
 
+  // Esc closes the video popup
   useEffect(() => {
     if (!playing) return;
     const onKey = (e) => e.key === "Escape" && setPlaying(null);
@@ -366,49 +401,13 @@ function MediaList({ tab }) {
   );
 }
 
-/* ---------- Page ---------- */
+/* ---------- Page (header + footer come from Layout) ---------- */
 export default function Media() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [tabKey, setTabKey] = useState("sermons");
   const tab = TABS.find((t) => t.key === tabKey);
 
   return (
-    <div className="home media-page">
-      <header
-        className="hero media-hero"
-        style={{ backgroundImage: `linear-gradient(rgba(5,12,30,.6), rgba(5,12,30,.6)), url(${IMG.hero})` }}
-      >
-        <nav className="nav">
-          <a href="/" className="nav__logo">
-            <img src={IMG.logo} alt="Gilgal AG logo" />
-          </a>
-          <button
-            className={`nav__toggle ${menuOpen ? "open" : ""}`}
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-          <ul className={`nav__links ${menuOpen ? "open" : ""}`}>
-            {NAV_LINKS.map((l) => (
-              <li key={l}>
-                <a href={l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`} aria-current={l === "Media" ? "page" : undefined}>
-                  {l}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="media-hero__content">
-          <h1>Media</h1>
-          <p>Sermons, teachings, and spiritual insights</p>
-        </div>
-      </header>
-
+    <div className="media-page">
       <div className="media-tabs" role="tablist" aria-label="Media sections">
         {TABS.map((t) => (
           <button key={t.key} type="button" role="tab" aria-selected={t.key === tabKey} onClick={() => setTabKey(t.key)}>
@@ -417,7 +416,7 @@ export default function Media() {
         ))}
       </div>
 
-      <main className="media-main">
+      <div className="media-main">
         {tab.path ? (
           <MediaList key={tab.key} tab={tab} />
         ) : (
@@ -425,69 +424,7 @@ export default function Media() {
             <p>{tab.label} is coming soon.</p>
           </div>
         )}
-      </main>
-
-      <footer className="footer">
-        <div className="footer__top">
-          <div className="footer__brand">
-            <div className="footer__brand-head">
-              <img src={IMG.logo} alt="Gilgal AG logo" />
-              <div>
-                <strong>Gilgal AG</strong>
-                <small>International Worship Center</small>
-              </div>
-            </div>
-            <p>A place where faith, hope, and love come together. Experience the power of the Holy Spirit in worship and fellowship.</p>
-            <div className="footer__social">
-              <a href="#" aria-label="Facebook">
-                f
-              </a>
-              <a href="#" aria-label="Instagram">
-                ◎
-              </a>
-              <a href="#" aria-label="YouTube">
-                ▶
-              </a>
-            </div>
-          </div>
-
-          {FOOTER_COLS.map((col) => (
-            <div className="footer__col" key={col.title}>
-              <h4>{col.title}</h4>
-              <ul>
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#">{l}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div className="footer__col footer__contact">
-            <h4>Contact</h4>
-            <p>
-              📍 Building No. 3 and 4, loke, 168/13, Hosur Rd, behind Dakshin Honda Showroom, Hal Layout, Singasandra, Bengaluru, Karnataka,
-              560068
-            </p>
-            <p>📞 +91 - 9880077023 / +91 - 9844072577</p>
-          </div>
-
-          <div className="footer__col footer__quick">
-            <a href="/give">Give</a>
-            <a href="/events">Events</a>
-            <a href="/gallery">Gallery</a>
-          </div>
-        </div>
-
-        <div className="footer__bottom">
-          <small>©2026 Gilgal AG International Worship Center. All rights reserved.</small>
-          <div>
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/terms-of-service">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
