@@ -1,5 +1,4 @@
-/* Media page: all selectors are scoped under .media-page or prefixed sm- / media- */
-
+/* frontend/src/pages/media/media.css */
 .media-page {
   --navy: #17306b;
   --blue: #0d4a8a;
@@ -37,7 +36,8 @@
   font-size: clamp(2rem, 5vw, 2.6rem);
   font-weight: 400;
   letter-spacing: 0.5em;
-  padding-left: 0.5em; /* balances the trailing letter-spacing */
+  padding-left: 0.5em;
+  /* balances the trailing letter-spacing */
   text-transform: uppercase;
 }
 
@@ -451,23 +451,48 @@
 }
 
 @keyframes sm-pulse {
-  50% { opacity: 0.55; }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sm-skeleton { animation: none; }
+  .sm-skeleton {
+    animation: none;
+  }
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .sm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sm-feature { grid-template-columns: 1fr; }
-  .sm-feature .sm-thumb { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
+  .sm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .sm-feature .sm-thumb {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
 }
 
 @media (max-width: 600px) {
-  .sm-grid { grid-template-columns: 1fr; }
-  .sm-filters { padding: 16px; }
-  .sm-filters select { flex: 1 1 120px; }
-  .media-tabs button { font-size: 1.05rem; }
+  .sm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sm-filters {
+    padding: 16px;
+  }
+
+  .sm-filters select {
+    flex: 1 1 120px;
+  }
+
+  .media-tabs button {
+    font-size: 1.05rem;
+  }
 }

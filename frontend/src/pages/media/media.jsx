@@ -1,5 +1,6 @@
+// frontend/src/pages/media/media.jsx
 import { useEffect, useRef, useState } from "react";
-import "../home/home.css";// navbar + footer styles live here
+// import apiClient from "../../config/axios";
 import "./media.css";
 
 /* ---------- Config ---------- */
@@ -11,7 +12,7 @@ const CHANNEL_NAME = "Gilgal AG International Worship Centre";
 
 const IMG = {
   logo: "/images/logo.png",
-  hero: "/images/media-hero.jpg",
+  hero: "/images/media-hero.jpg"
 };
 
 const NAV_LINKS = ["Home", "About Us", "Media", "Gallery", "Events", "Contact", "Give"];
@@ -19,7 +20,7 @@ const NAV_LINKS = ["Home", "About Us", "Media", "Gallery", "Events", "Contact", 
 const FOOTER_COLS = [
   { title: "Home", links: ["Our Mission", "Our Vision", "Our Belief", "Events"] },
   { title: "About Us", links: ["Our Pastors", "Our Belief", "Our Doctrinal Foundation", "FAQs"] },
-  { title: "Media", links: ["Live Stream", "Sermon", "Praise & Worship", "Podcast"] },
+  { title: "Media", links: ["Live Stream", "Sermon", "Praise & Worship", "Podcast"] }
 ];
 
 // path = endpoint on your backend; tabs without a path show "coming soon"
@@ -27,7 +28,7 @@ const TABS = [
   { key: "live", label: "Live Stream" },
   { key: "sermons", label: "Sermons", path: "latest", kicker: "Latest message", noun: "sermons" },
   { key: "music", label: "Praise & Worship", path: "music/latest", kicker: "Latest worship", noun: "songs" },
-  { key: "podcast", label: "Podcast" },
+  { key: "podcast", label: "Podcast" }
 ];
 
 /* ---------- Helpers ---------- */
@@ -41,10 +42,7 @@ const formatDuration = (iso) => {
   return h ? `${h}:${pad(min)}:${pad(s)}` : `${min}:${pad(s)}`;
 };
 
-const formatDate = (iso) =>
-  iso
-    ? new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })
-    : "";
+const formatDate = (iso) => (iso ? new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }) : "");
 
 const unique = (list) => [...new Set(list.filter(Boolean))].sort();
 
@@ -62,26 +60,32 @@ function getPages(current, total) {
 
 /* ---------- Data hook ---------- */
 function useMedia(path, reloadKey) {
-  const [state, setState] = useState({ items: [], status: "loading" });
+  const requestKey = `${path}:${reloadKey}`;
+  const [state, setState] = useState({
+    requestKey,
+    items: [],
+    status: "loading"
+  });
 
   useEffect(() => {
     const controller = new AbortController();
-    setState({ items: [], status: "loading" });
 
     fetch(`${API_URL}/sermons/${CHURCH_ID}/${path}?limit=50`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error("Request failed");
         return res.json();
       })
-      .then(({ data }) => setState({ items: data || [], status: "ready" }))
+      .then(({ data }) => setState({ requestKey, items: data || [], status: "ready" }))
       .catch((err) => {
-        if (err.name !== "AbortError") setState({ items: [], status: "error" });
+        if (err.name !== "AbortError") {
+          setState({ requestKey, items: [], status: "error" });
+        }
       });
 
     return () => controller.abort();
-  }, [path, reloadKey]);
+  }, [path, requestKey]);
 
-  return state;
+  return state.requestKey === requestKey ? state : { items: [], status: "loading" };
 }
 
 /* ---------- Icons ---------- */
@@ -208,7 +212,7 @@ function MediaList({ tab }) {
   const dropdowns = [
     { key: "topic", label: "Topic", options: unique(rest.map((i) => i.topic)) },
     { key: "speaker", label: "Speaker", options: unique(rest.map((i) => i.speaker)) },
-    { key: "series", label: "Series", options: unique(rest.map((i) => i.series)) },
+    { key: "series", label: "Series", options: unique(rest.map((i) => i.series)) }
   ].filter((d) => d.options.length > 0);
 
   const goTo = (n) => {
@@ -311,9 +315,7 @@ function MediaList({ tab }) {
             ))}
           </div>
 
-          {filtered.length === 0 && (
-            <p className="sm-state">Nothing matches your search. Try a different keyword.</p>
-          )}
+          {filtered.length === 0 && <p className="sm-state">Nothing matches your search. Try a different keyword.</p>}
 
           {totalPages > 1 && (
             <nav className="sm-pages" aria-label="Pagination">
@@ -322,14 +324,11 @@ function MediaList({ tab }) {
               </button>
               {getPages(current, totalPages).map((p, i) =>
                 p === "…" ? (
-                  <span key={`gap-${i}`} aria-hidden="true">…</span>
+                  <span key={`gap-${i}`} aria-hidden="true">
+                    …
+                  </span>
                 ) : (
-                  <button
-                    key={p}
-                    type="button"
-                    aria-current={p === current ? "page" : undefined}
-                    onClick={() => goTo(p)}
-                  >
+                  <button key={p} type="button" aria-current={p === current ? "page" : undefined} onClick={() => goTo(p)}>
                     {p}
                   </button>
                 )
@@ -358,7 +357,11 @@ function MediaList({ tab }) {
         </div>
       )}
 
-      {toast && <div className="sm-toast" role="status">{toast}</div>}
+      {toast && (
+        <div className="sm-toast" role="status">
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
@@ -371,7 +374,10 @@ export default function Media() {
 
   return (
     <div className="home media-page">
-      <header className="hero media-hero" style={{ backgroundImage: `linear-gradient(rgba(5,12,30,.6), rgba(5,12,30,.6)), url(${IMG.hero})` }}>
+      <header
+        className="hero media-hero"
+        style={{ backgroundImage: `linear-gradient(rgba(5,12,30,.6), rgba(5,12,30,.6)), url(${IMG.hero})` }}
+      >
         <nav className="nav">
           <a href="/" className="nav__logo">
             <img src={IMG.logo} alt="Gilgal AG logo" />
@@ -389,10 +395,7 @@ export default function Media() {
           <ul className={`nav__links ${menuOpen ? "open" : ""}`}>
             {NAV_LINKS.map((l) => (
               <li key={l}>
-                <a
-                  href={l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`}
-                  aria-current={l === "Media" ? "page" : undefined}
-                >
+                <a href={l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`} aria-current={l === "Media" ? "page" : undefined}>
                   {l}
                 </a>
               </li>
@@ -408,13 +411,7 @@ export default function Media() {
 
       <div className="media-tabs" role="tablist" aria-label="Media sections">
         {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            aria-selected={t.key === tabKey}
-            onClick={() => setTabKey(t.key)}
-          >
+          <button key={t.key} type="button" role="tab" aria-selected={t.key === tabKey} onClick={() => setTabKey(t.key)}>
             {t.label}
           </button>
         ))}
@@ -440,14 +437,17 @@ export default function Media() {
                 <small>International Worship Center</small>
               </div>
             </div>
-            <p>
-              A place where faith, hope, and love come together. Experience the power of the Holy
-              Spirit in worship and fellowship.
-            </p>
+            <p>A place where faith, hope, and love come together. Experience the power of the Holy Spirit in worship and fellowship.</p>
             <div className="footer__social">
-              <a href="#" aria-label="Facebook">f</a>
-              <a href="#" aria-label="Instagram">◎</a>
-              <a href="#" aria-label="YouTube">▶</a>
+              <a href="#" aria-label="Facebook">
+                f
+              </a>
+              <a href="#" aria-label="Instagram">
+                ◎
+              </a>
+              <a href="#" aria-label="YouTube">
+                ▶
+              </a>
             </div>
           </div>
 
@@ -467,8 +467,8 @@ export default function Media() {
           <div className="footer__col footer__contact">
             <h4>Contact</h4>
             <p>
-              📍 Building No. 3 and 4, loke, 168/13, Hosur Rd, behind Dakshin Honda Showroom, Hal
-              Layout, Singasandra, Bengaluru, Karnataka, 560068
+              📍 Building No. 3 and 4, loke, 168/13, Hosur Rd, behind Dakshin Honda Showroom, Hal Layout, Singasandra, Bengaluru, Karnataka,
+              560068
             </p>
             <p>📞 +91 - 9880077023 / +91 - 9844072577</p>
           </div>

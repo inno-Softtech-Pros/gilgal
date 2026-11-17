@@ -1,3 +1,4 @@
+/* frontend/src/pages/home/home.css */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
 
 /* ---------- Tokens ---------- */
@@ -135,7 +136,8 @@
 .hero {
   position: relative;
   min-height: 100vh;
-  min-height: 100svh; /* fixes the mobile browser address-bar jump */
+  min-height: 100svh;
+  /* fixes the mobile browser address-bar jump */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -215,9 +217,11 @@
 .nav__toggle.open span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 .nav__toggle.open span:nth-child(2) {
   opacity: 0;
 }
+
 .nav__toggle.open span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
@@ -246,6 +250,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -279,15 +284,33 @@
 }
 
 @keyframes scrollDot {
-  0%   { opacity: 0; transform: translateY(0); }
-  30%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(18px); }
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 }
 
 /* directional reveals */
-.reveal--left  { transform: translateX(-56px); }
-.reveal--right { transform: translateX(56px); }
-.reveal--zoom  { transform: scale(0.92); }
+.reveal--left {
+  transform: translateX(-56px);
+}
+
+.reveal--right {
+  transform: translateX(56px);
+}
+
+.reveal--zoom {
+  transform: scale(0.92);
+}
 
 /* ---------- Info strip ---------- */
 .info-strip {
@@ -332,7 +355,7 @@
   grid-template-columns: 1fr 1.4fr 1fr;
   grid-template-areas:
     "left text right"
-    ".    cards ." ;
+    ".    cards .";
   gap: 2rem;
   align-items: center;
 }
@@ -409,9 +432,11 @@
 .tone-pink {
   background: #ffe4e8;
 }
+
 .tone-blue {
   background: #e0ecff;
 }
+
 .tone-green {
   background: #dff5e1;
 }
@@ -472,18 +497,23 @@
 .belief-card.tone-purple {
   background: #efeafd;
 }
+
 .belief-card.tone-purple h3 {
   color: #6a5bb5;
 }
+
 .belief-card.tone-teal {
   background: #e3f6f8;
 }
+
 .belief-card.tone-teal h3 {
   color: #2a8f9a;
 }
+
 .belief-card.tone-olive {
   background: #eef4dd;
 }
+
 .belief-card.tone-olive h3 {
   color: #6c8a1b;
 }
@@ -638,7 +668,7 @@
   gap: 0.5rem;
 }
 
-.countdown__unit > div {
+.countdown__unit>div {
   min-width: 90px;
 }
 
@@ -690,9 +720,13 @@
 
 .events__list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.2rem;
   max-width: 1000px;
+}
+
+.events__list>p {
+  grid-column: 1 / -1;
 }
 
 .event-card {
@@ -704,7 +738,7 @@
 }
 
 .event-card__img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 6 / 3;
   border-radius: 20px;
   overflow: hidden;
   background: #aaa4a4;
@@ -857,29 +891,36 @@
   .footer__top {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .footer__brand {
     grid-column: 1 / -1;
   }
+
   .footer__quick {
     flex-direction: row;
     grid-column: 1 / -1;
   }
+
   .events {
     grid-template-columns: 1fr;
   }
+
   .events__intro {
     justify-self: start;
   }
+
   .events__list {
     max-width: none;
   }
 }
 
 @media (max-width: 860px) {
+
   /* mobile nav */
   .nav__toggle {
     display: flex;
   }
+
   .nav__links {
     position: absolute;
     top: 100%;
@@ -892,9 +933,11 @@
     overflow: hidden;
     transition: max-height 0.4s ease;
   }
+
   .nav__links.open {
     max-height: 420px;
   }
+
   .nav__links li a {
     display: block;
     padding: 0.9rem 2rem;
@@ -907,6 +950,7 @@
       "left right"
       "cards cards";
   }
+
   .intro__img--left,
   .intro__img--right {
     max-width: none;
@@ -917,6 +961,7 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
   .pastor__photo img {
     margin: 0 auto;
   }
@@ -928,36 +973,39 @@
   .app {
     grid-template-columns: 1fr;
   }
-
-  .events__list {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media (max-width: 560px) {
   .nav {
     padding: 0.8rem 1rem;
   }
+
   .info-strip {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 2rem;
   }
+
   .intro__cards {
     grid-template-columns: 1fr;
   }
+
   .events__list {
     grid-template-columns: 1fr;
   }
-  .countdown__unit > div {
+
+  .countdown__unit>div {
     min-width: 62px;
   }
+
   .footer__top {
     grid-template-columns: 1fr 1fr;
   }
+
   .footer__contact {
     grid-column: 1 / -1;
   }
+
   .footer__bottom {
     flex-direction: column;
   }
@@ -965,6 +1013,7 @@
 
 /* ---------- Respect reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+
   .reveal,
   .hero__content,
   .app__phone img,
@@ -974,6 +1023,7 @@
     opacity: 1;
     transform: none;
   }
+
   .reveal.is-visible:hover {
     transform: none;
   }
