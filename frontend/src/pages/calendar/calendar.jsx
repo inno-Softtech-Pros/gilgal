@@ -1,14 +1,14 @@
 // frontend/src/pages/calendar/calendar.jsx
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import useFeatureHeader from "../../hooks/useFeatureHeader";
 import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./calendar.css";
 
 const FEATURE_HEADER = {
-  backgroundImage: "",
+  backgroundImage: "/images/heroes/events-hero.jpg",
   title: "Events",
-  subtitle: "Discover what is happening at Gilgal AG Church this month"
+  subtitle: "Discover what is happening at our church this month."
 };
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

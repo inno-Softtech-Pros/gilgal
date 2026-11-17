@@ -1,10 +1,20 @@
 // frontend/src/pages/gallery/gallery.jsx
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import EventsGallery, { EVENTS, PhotoMasonry, PhotoMosaic, eventPhotos } from "./Eventsgallery";
-import "./Gallery.css";
+// import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
+import EventsGallery, { EVENTS, PhotoMasonry, PhotoMosaic, eventPhotos } from "./eventsGallery";
+import "./gallery.css";
 
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/gallery-hero.jpg",
+  title: "Gallery",
+  subtitle: "<Replace with suitable subtitle>"
+};
+
+/* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = "/images/gallery";
+
 const TABS = [
   { slug: "all", label: "All" },
   { slug: "worship", label: "Worship" },
@@ -17,7 +27,7 @@ const tabPath = (slug) => (slug === "all" ? "/gallery" : `/gallery/${slug}`);
 // Worship: the exact mosaic from the 1440px design (1370 x 3127 px of photos).
 // Each tile is [x, y, width, height, objectPosition?] in design pixels. The optional
 // last value picks which part of a photo stays visible (default "center").
-// Files: public/images/gallery/worship-01.jpg ... worship-41.jpg, in this order.
+// Files: public/images/gallery/worship/worship-01.jpg ... worship-41.jpg, in this order.
 const GRID_W = 1370;
 const GRID_H = 3127;
 const WORSHIP_TILES = [
@@ -123,12 +133,12 @@ const CHILDREN_TILES = [
   [581, 1632, 441, 364, "center top"], // children-24: keeps the top of the photo (head) visible
   [1046, 1632, 324, 364]
 ];
-const CHILDREN_FILES = CHILDREN_TILES.map((_, i) => `children-${String(i + 1).padStart(2, "0")}.jpg`);
 
 const toPhotos = (files, folder, label) => files.map((file, i) => ({ src: `${IMG}/${folder}/${file}`, alt: `${label} photo ${i + 1}` }));
 
+const CHILDREN_FILES = CHILDREN_TILES.map((_, i) => `children-${String(i + 1).padStart(2, "0")}.jpg`);
 const WORSHIP_PHOTOS = WORSHIP_TILES.map((_, i) => ({
-  src: `${IMG}/worship-${String(i + 1).padStart(2, "0")}.jpg`,
+  src: `${IMG}/worship/worship-${String(i + 1).padStart(2, "0")}.jpg`,
   alt: `Worship moment ${i + 1}`
 }));
 const YOUTH_PHOTOS = toPhotos(YOUTH_FILES, "youth", "Youth");
@@ -138,6 +148,7 @@ const CHILDREN_PHOTOS = toPhotos(CHILDREN_FILES, "children", "Children");
 const ALL_PHOTOS = [...WORSHIP_PHOTOS, ...EVENTS.flatMap(eventPhotos), ...YOUTH_PHOTOS, ...CHILDREN_PHOTOS];
 
 export default function Gallery() {
+  useFeatureHeader(FEATURE_HEADER);
   const { tab = "all", eventSlug } = useParams();
   const activeTab = TABS.some((t) => t.slug === tab) ? tab : "all";
   const tabsRef = useRef(null);
@@ -154,12 +165,6 @@ export default function Gallery() {
 
   return (
     <div className="gallery">
-      {/* Hero */}
-      <section className="gallery-hero" style={{ backgroundImage: `url(${IMG}/gallery-hero.jpg)` }}>
-        <h1 className="gallery-hero__title">GALLERY</h1>
-        <p className="gallery-hero__subtitle">Moments from our church family</p>
-      </section>
-
       {/* Category tabs */}
       <div className="gallery-tabs" ref={tabsRef}>
         <nav className="gallery-tabs__list" aria-label="Photo categories">

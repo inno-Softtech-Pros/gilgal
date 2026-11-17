@@ -1,7 +1,14 @@
 // frontend/src/pages/media/media.jsx
 import { useEffect, useRef, useState } from "react";
 // import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./media.css";
+
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/media-hero.jpg",
+  title: "Media",
+  subtitle: "<Replace with suitable subtitle>"
+};
 
 /* ---------- Config ---------- */
 const API_URL = import.meta.env.VITE_API_URL;
@@ -401,8 +408,8 @@ function MediaList({ tab }) {
   );
 }
 
-/* ---------- Page (header + footer come from Layout) ---------- */
 export default function Media() {
+  useFeatureHeader(FEATURE_HEADER);
   const [tabKey, setTabKey] = useState("sermons");
   const tab = TABS.find((t) => t.key === tabKey);
 

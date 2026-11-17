@@ -29,7 +29,7 @@ export default function Header({ backgroundImage, title, subtitle }) {
       <div className="hd-overlay" />
       <div className="hd-container">
         <NavLink className="hd-logo-box" to="/home" aria-label="Gilgal AG home">
-          <img className="hd-logo-img" src="/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
+          <img className="hd-logo-img" src="/images/logos/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
         </NavLink>
 
         <button

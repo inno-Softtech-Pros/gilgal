@@ -1,6 +1,7 @@
 // frontend/src/components/footer/footer.jsx
 import { NavLink } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { FacebookIcon, InstagramIcon, YoutubeIcon } from "../customIcons";
 import "./footer.css";
 
 const COLUMNS = [
@@ -38,7 +39,7 @@ export default function Footer() {
       <div className="ft-top">
         <div className="ft-brand">
           <NavLink to="/home" className="ft-brand-head">
-            <img src="/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
+            <img src="/images/logos/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
             <span>
               <strong>Gilgal AG</strong>
               <small>International Worship Centre</small>
@@ -47,13 +48,13 @@ export default function Footer() {
           <p>A place where faith, hope, and love come together. Join us as we worship and grow in Christ.</p>
           <div className="ft-social" aria-label="Social media links">
             <a href="#" aria-label="Facebook">
-              f
+              <FacebookIcon size={22} />
             </a>
             <a href="#" aria-label="Instagram">
-              ig
+              <InstagramIcon size={22} />
             </a>
             <a href="#" aria-label="YouTube">
-              yt
+              <YoutubeIcon size={22} />
             </a>
           </div>
         </div>
@@ -81,12 +82,6 @@ export default function Footer() {
             <Mail size={14} /> info@gilgalagchurch.com
           </p>
         </div>
-
-        <nav className="ft-events" aria-label="Quick links">
-          <NavLink to="/events">Events</NavLink>
-          <NavLink to="/gallery">Gallery</NavLink>
-          <NavLink to="/donations">Give</NavLink>
-        </nav>
       </div>
 
       <div className="ft-bottom">

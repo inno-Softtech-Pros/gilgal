@@ -1,8 +1,9 @@
 // frontend/src/pages/about-us/leadership.jsx
 import { useEffect } from "react";
-import "./About.css"; // reuses the About Us hero so all About pages share one header
+// import apiClient from "../../config/axios";
 import "./leadership.css";
 
+/* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = "/images/about";
 const PHOTOS = "/images/about/leadership";
 

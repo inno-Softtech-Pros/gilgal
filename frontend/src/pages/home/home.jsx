@@ -1,23 +1,27 @@
 // frontend/src/pages/home/home.jsx
 import { useEffect, useRef, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import apiClient from "../../config/axios";
-import intro1 from "../../assets/home/intro1.png";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./home.css";
+
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/home-hero.jpg",
+  title: "Home",
+  subtitle: "Welcome to our church!"
+};
 
 /* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = {
- 
-  intro1,
-  intro2: "/images/intro-2.jpg",
-  pastor: "/images/pastor.jpg",
-  phone: "/images/app-phone.png",
-  appStore: "/images/app-store.png",
-  playStore: "/images/google-play.png"
+  intro1: "/images/home/intro-1.png",
+  intro2: "/images/about/bible.jpg",
+  pastor: "/images/heroes/about-us-hero.jpg",
+  phone: "/images/ocl-app/app-phone.png",
+  appStore: "/images/ocl-app/app-store.png",
+  playStore: "/images/ocl-app/google-play.png"
 };
 
 /* ---------- Static data ---------- */
-
-
 const INFO = [
   { icon: "🕘", title: "Sunday Service", text: "9:00 AM - 11:00 AM" },
   { icon: "📍", title: "Location", text: "Singasandra, Bangalore" },
@@ -156,12 +160,47 @@ function useCountdown() {
 
 const pad = (n) => String(n).padStart(2, "0");
 
-/* ---------- Page ---------- */
-export default function Home() {
-  const time = useCountdown();
+function HomeBannerContent() {
+  return (
+    <section className="ocl-app">
+      <Reveal className="ocl-app__text">
+        <h2>
+          Experience faith at your fingertips: Introducing <em>OurChurchLink App!</em>
+        </h2>
+        <p>
+          Stay spiritually anchored wherever life takes you. Experience uninterrupted connection to Gilgal AG: stream live services with
+          real-time prayer chat, receive dawn devotion, also access pastor sermon notes offline anytime.
+        </p>
+        <div className="ocl-app__download">
+          <span>DOWNLOAD NOW</span>
+          <a href="#" aria-label="Download on the App Store">
+            <img src={IMG.appStore} alt="App Store" />
+          </a>
+          <a href="#" aria-label="Get it on Google Play">
+            <img src={IMG.playStore} alt="Google Play" />
+          </a>
+        </div>
+      </Reveal>
+      <Reveal className="ocl-app__phone" delay={150}>
+        <div className="ocl-app__circle">
+          <img src={IMG.phone} alt="OurChurchLink app preview" />
+        </div>
+      </Reveal>
+    </section>
+  );
+}
 
+export default function Home() {
+  useFeatureHeader(FEATURE_HEADER);
   const [events, setEvents] = useState([]);
   const [eventsLoading, setEventsLoading] = useState(true);
+
+  const time = useCountdown();
+  const { setBanner } = useOutletContext();
+  useEffect(() => {
+    setBanner(<HomeBannerContent />);
+    return () => setBanner(null);
+  }, [setBanner]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -199,40 +238,6 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* ===== Hero + navbar =====
-      <header className="hero" style={{ backgroundImage: `url(${IMG.hero})` }}>
-        <nav className="nav">
-          <a href="/" className="nav__logo">
-            <img src={IMG.logo} alt="Gilgal AG logo" />
-          </a>
-          <button
-            className={`nav__toggle ${menuOpen ? "open" : ""}`}
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-          <ul className={`nav__links ${menuOpen ? "open" : ""}`}>
-            {NAV_LINKS.map((l) => (
-              <li key={l}>
-                <a href={l === "Home" ? "/" : `/${l.toLowerCase().replace(/\s+/g, "-")}`}>{l}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="hero__content">
-          <h1>Welcome to Gilgal AG Church</h1>
-          <a href="/contact" className="btn btn--gold">
-            VISIT US
-          </a>
-        </div>
-        <a href="#info" className="hero__scroll" aria-label="Scroll down" />
-      </header> */}
-
       {/* ===== Info strip ===== */}
       <Reveal as="section" id="info" className="info-strip">
         {INFO.map((i) => (
@@ -327,33 +332,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== App promo ===== */}
-      <section className="app">
-        <Reveal className="app__text">
-          <span className="app__eyebrow">GILGAL AG CHURCH PRESENTS</span>
-          <h2>
-            Experience faith at your fingertips: Introducing <em>OurChurchLink App!</em>
-          </h2>
-          <p>
-            Stay spiritually anchored wherever life takes you. Experience uninterrupted connection to Gilgal AG: stream live services with
-            real-time prayer chat, receive dawn devotion, also access pastor sermon notes offline anytime.
-          </p>
-          <div className="app__download">
-            <span>DOWNLOAD NOW</span>
-            <a href="#" aria-label="Download on the App Store">
-              <img src={IMG.appStore} alt="App Store" />
-            </a>
-            <a href="#" aria-label="Get it on Google Play">
-              <img src={IMG.playStore} alt="Google Play" />
-            </a>
-          </div>
-        </Reveal>
-        <Reveal className="app__phone" delay={150}>
-          <div className="app__circle" />
-          <img src={IMG.phone} alt="OurChurchLink app preview" />
-        </Reveal>
-      </section>
-
       {/* ===== Sermons ===== */}
       <section className="section">
         <Reveal as="h2" className="section__title">
@@ -424,8 +402,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      
     </div>
   );
 }

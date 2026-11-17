@@ -558,7 +558,7 @@
 }
 
 /* ---------- App promo ---------- */
-.app {
+.ocl-app {
   max-width: 1100px;
   margin: 0 auto;
   padding: 4rem 1.5rem;
@@ -568,25 +568,19 @@
   align-items: center;
 }
 
-.app__eyebrow {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--navy);
-}
-
-.app__text h2 {
+.ocl-app__text h2 {
   color: var(--ink);
   font-size: clamp(1.4rem, 3vw, 2rem);
   line-height: 1.3;
   margin: 0.6rem 0 1rem;
 }
 
-.app__text h2 em {
+.ocl-app__text h2 em {
   font-style: normal;
-  color: hsl(34, 87%, 45%);
+  color: #d9830f;
 }
 
-.app__download {
+.ocl-app__download {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -597,36 +591,42 @@
   color: var(--navy);
 }
 
-.app__download img {
+.ocl-app__download img {
   height: 38px;
   width: auto;
   transition: transform 0.25s ease;
+  border-radius: 8px;
 }
 
-.app__download a:hover img {
+.ocl-app__download a:hover img {
   transform: translateY(-3px);
 }
 
-.app__phone {
+.ocl-app__phone {
   position: relative;
   display: grid;
   place-items: center;
   min-height: 320px;
 }
 
-.app__circle {
+.ocl-app__circle {
   position: absolute;
   width: min(320px, 80%);
   aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  border: 16px solid hsl(45, 87%, 73%);
-  background: hsl(46, 100%, 91%);
+  border: 16px solid #f6d77d;
+  background: #f5faff;
 }
 
-.app__phone img {
+.ocl-app__circle img {
   position: relative;
   width: min(220px, 60%);
-  animation: floaty 4s ease-in-out infinite;
+  height: min(220px, 70%);
+  margin-bottom: 10px;
+  animation: floaty 3s ease-in-out infinite;
 }
 
 @keyframes floaty {
@@ -970,7 +970,7 @@
     grid-template-columns: 1fr;
   }
 
-  .app {
+  .ocl-app {
     grid-template-columns: 1fr;
   }
 }
@@ -1016,7 +1016,7 @@
 
   .reveal,
   .hero__content,
-  .app__phone img,
+  .ocl-app__phone img,
   .hero__scroll::after {
     animation: none;
     transition: none;

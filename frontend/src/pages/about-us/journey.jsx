@@ -1,8 +1,9 @@
 // frontend/src/pages/about-us/journey.jsx
 import { useEffect } from "react";
+// import apiClient from "../../config/axios";
 import "./journey.css";
 
-// Photos live in frontend/public/images/about/ (served from the site root).
+/* ---------- Image paths (put these files in /public/images) ---------- */
 const FOUNDERS_IMG = "/images/about/pastor-parents.jpg";
 const CONGREGATION_IMG = "/images/about/journey-congregation.jpg";
 
