@@ -1,5 +1,14 @@
+// frontend/src/pages/media/media.jsx
 import { useEffect, useRef, useState } from "react";
+// import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./media.css";
+
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/media-hero.jpg",
+  title: "Media",
+  subtitle: "<Replace with suitable subtitle>"
+};
 
 /* ---------- Config ---------- */
 const API_URL = import.meta.env.VITE_API_URL;
@@ -17,7 +26,7 @@ const TABS = [
   { key: "live", label: "Live Stream" },
   { key: "sermons", label: "Sermons", path: "latest", kicker: "Latest message", noun: "sermons" },
   { key: "music", label: "Praise & Worship", path: "music/latest", kicker: "Latest worship", noun: "songs" },
-  { key: "podcast", label: "Podcast" },
+  { key: "podcast", label: "Podcast" }
 ];
 
 /* ---------- Helpers ---------- */
@@ -31,10 +40,7 @@ const formatDuration = (iso) => {
   return h ? `${h}:${pad(min)}:${pad(s)}` : `${min}:${pad(s)}`;
 };
 
-const formatDate = (iso) =>
-  iso
-    ? new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })
-    : "";
+const formatDate = (iso) => (iso ? new Date(iso).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" }) : "");
 
 const unique = (list) => [...new Set(list.filter(Boolean))].sort();
 
@@ -78,11 +84,15 @@ const bestThumb = (url = "") => url.replace("/mqdefault.jpg", "/maxresdefault.jp
 
 /* ---------- Data hook ---------- */
 function useMedia(path, reloadKey) {
-  const [state, setState] = useState({ items: [], status: "loading" });
+  const requestKey = `${path}:${reloadKey}`;
+  const [state, setState] = useState({
+    requestKey,
+    items: [],
+    status: "loading"
+  });
 
   useEffect(() => {
     const controller = new AbortController();
-    setState({ items: [], status: "loading" });
 
     fetch(`${API_URL}/sermons/${path}?limit=50`, { signal: controller.signal })
       .then((res) => {
@@ -91,13 +101,15 @@ function useMedia(path, reloadKey) {
       })
       .then(({ data }) => setState({ items: (data || []).map(normalize), status: "ready" }))
       .catch((err) => {
-        if (err.name !== "AbortError") setState({ items: [], status: "error" });
+        if (err.name !== "AbortError") {
+          setState({ requestKey, items: [], status: "error" });
+        }
       });
 
     return () => controller.abort();
-  }, [path, reloadKey]);
+  }, [path, requestKey]);
 
-  return state;
+  return state.requestKey === requestKey ? state : { items: [], status: "loading" };
 }
 
 /* ---------- Icons ---------- */
@@ -241,7 +253,7 @@ function MediaList({ tab }) {
   const dropdowns = [
     { key: "topic", label: "Topic", options: unique(rest.map((i) => i.topic)) },
     { key: "speaker", label: "Speaker", options: unique(rest.map((i) => i.speaker)) },
-    { key: "series", label: "Series", options: unique(rest.map((i) => i.series)) },
+    { key: "series", label: "Series", options: unique(rest.map((i) => i.series)) }
   ].filter((d) => d.options.length > 0);
 
   const goTo = (n) => {
@@ -345,9 +357,7 @@ function MediaList({ tab }) {
             ))}
           </div>
 
-          {filtered.length === 0 && (
-            <p className="sm-state">Nothing matches your search. Try a different keyword.</p>
-          )}
+          {filtered.length === 0 && <p className="sm-state">Nothing matches your search. Try a different keyword.</p>}
 
           {totalPages > 1 && (
             <nav className="sm-pages" aria-label="Pagination">
@@ -356,14 +366,11 @@ function MediaList({ tab }) {
               </button>
               {getPages(current, totalPages).map((p, i) =>
                 p === "…" ? (
-                  <span key={`gap-${i}`} aria-hidden="true">…</span>
+                  <span key={`gap-${i}`} aria-hidden="true">
+                    …
+                  </span>
                 ) : (
-                  <button
-                    key={p}
-                    type="button"
-                    aria-current={p === current ? "page" : undefined}
-                    onClick={() => goTo(p)}
-                  >
+                  <button key={p} type="button" aria-current={p === current ? "page" : undefined} onClick={() => goTo(p)}>
                     {p}
                   </button>
                 )
@@ -392,13 +399,17 @@ function MediaList({ tab }) {
         </div>
       )}
 
-      {toast && <div className="sm-toast" role="status">{toast}</div>}
+      {toast && (
+        <div className="sm-toast" role="status">
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
 
-/* ---------- Page (header + footer come from Layout) ---------- */
 export default function Media() {
+  useFeatureHeader(FEATURE_HEADER);
   const [tabKey, setTabKey] = useState("sermons");
   const tab = TABS.find((t) => t.key === tabKey);
 
@@ -406,13 +417,7 @@ export default function Media() {
     <div className="media-page">
       <div className="media-tabs" role="tablist" aria-label="Media sections">
         {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            aria-selected={t.key === tabKey}
-            onClick={() => setTabKey(t.key)}
-          >
+          <button key={t.key} type="button" role="tab" aria-selected={t.key === tabKey} onClick={() => setTabKey(t.key)}>
             {t.label}
           </button>
         ))}

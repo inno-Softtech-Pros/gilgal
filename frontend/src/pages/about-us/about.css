@@ -1,12 +1,11 @@
-/* Sizes are the 1440px design values, scaled with clamp() for smaller screens */
+/* frontend/src/pages/about-us/about.css */
 .about {
-  --heading: #0d3b66;
-  --ink: #252a57;
-  --slate: #64748b;
-  --gold: #c88716;
+  --heading: hsl(209, 77%, 23%);
+  --ink: hsl(234, 40%, 24%);
+  --slate: hsl(215, 16%, 47%);
+  --gold: hsl(38, 80%, 44%);
   --pad: clamp(16px, 2.4vw, 35px);
-
-  background: #fffdf8;
+  background: hsl(43, 100%, 99%);
   color: var(--slate);
 }
 
@@ -26,16 +25,18 @@
 }
 
 .about-heading--light {
-  color: #fff;
+  color: hsl(0, 0%, 100%);
 }
 
 /* Hero */
 .about-hero {
   position: relative;
-  height: 100vh; /* fallback */
-  height: 100svh; /* hero fills the whole screen on load */
+  height: 100vh;
+  /* fallback */
+  height: 100svh;
+  /* hero fills the whole screen on load */
   min-height: 420px;
-  background: #05080f center / cover no-repeat;
+  background: hsl(222, 50%, 4%) center / cover no-repeat;
 }
 
 .about-hero__title {
@@ -47,7 +48,7 @@
   margin: 0;
   padding-left: 0.3em;
   text-align: center;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   font-size: clamp(32px, 4.4vw, 64px);
   font-weight: 400;
   letter-spacing: 0.3em;
@@ -61,7 +62,8 @@
 
 .about-pastors__card {
   display: grid;
-  grid-template-columns: 1.35fr 1fr; /* was 1fr 1fr: photo column is wider now */
+  grid-template-columns: 1.35fr 1fr;
+  /* was 1fr 1fr: photo column is wider now */
   gap: 24px;
   align-items: start;
 }
@@ -69,10 +71,11 @@
 .about-pastors__photo {
   display: block;
   width: 100%;
-  aspect-ratio: 662 / 403; /* was 675 / 796: matches the new landscape photo */
+  aspect-ratio: 662 / 403;
+  /* was 675 / 796: matches the new landscape photo */
   object-fit: cover;
   border-radius: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.25);
 }
 
 .about-pastors__body {
@@ -109,13 +112,13 @@
 
 .about-media__placeholder {
   aspect-ratio: 675 / 443;
-  background: #c4c4c4;
+  background: hsl(0, 0%, 77%);
   border-radius: 24px;
 }
 
 /* App promo */
 .about-app {
-  background: #f5faff;
+  background: hsl(210, 100%, 98%);
 }
 
 .about-app__inner {
@@ -218,8 +221,8 @@
   border: 0;
   overflow: hidden;
   border-radius: 40px;
-  background: linear-gradient(160deg, #fbf7e8 0%, #f6efd2 100%);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(160deg, hsl(47, 70%, 95%) 0%, hsl(48, 67%, 89%) 100%);
+  box-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.25);
   text-align: left;
   transform: none;
 }
@@ -235,7 +238,8 @@
   aspect-ratio: 442 / 184;
   object-fit: cover;
   border: 0;
-  border-radius: 0; /* the card's own rounded corners clip the photo */
+  border-radius: 0;
+  /* the card's own rounded corners clip the photo */
   box-shadow: none;
 }
 
@@ -268,14 +272,12 @@
 
 /* Our Doctrinal Foundation */
 .about-doctrine {
-  background: linear-gradient(
-    135deg,
-    #052a63 0%,
-    #0a4096 33%,
-    #bdd7ff 50%,
-    #0a4096 75%,
-    #052a63 100%
-  );
+  background: linear-gradient(135deg,
+      hsl(216, 90%, 20%) 0%,
+      hsl(217, 88%, 31%) 33%,
+      hsl(216, 100%, 87%) 50%,
+      hsl(217, 88%, 31%) 75%,
+      hsl(216, 90%, 20%) 100%);
 }
 
 .about-doctrine__inner {
@@ -292,10 +294,10 @@
 
 .doctrine-card {
   padding: 35px 34px 28px;
-  background: #fff7e6;
-  border: 1px solid #e8d3a0;
+  background: hsl(41, 100%, 95%);
+  border: 1px solid hsl(42, 61%, 77%);
   border-radius: 36px;
-  color: #000;
+  color: hsl(0, 0%, 0%);
 }
 
 .doctrine-card__icon {
@@ -305,14 +307,14 @@
   width: 59px;
   height: 59px;
   border-radius: 50%;
-  background: #f5b942;
-  color: #000;
+  background: hsl(40, 90%, 61%);
+  color: hsl(0, 0%, 0%);
 }
 
 .doctrine-card h3 {
   margin: 22px 0 0;
   font-size: clamp(18px, 1.67vw, 24px);
-  color: #102a56;
+  color: hsl(218, 69%, 20%);
 }
 
 .doctrine-card p {
@@ -340,9 +342,9 @@
   font-size: clamp(18px, 1.94vw, 28px);
   font-weight: 700;
   line-height: 1.5;
-  color: #fff;
-  background: linear-gradient(135deg, #2c5088 0%, #052a63 100%);
-  border: 4px solid #f0d79a;
+  color: hsl(0, 0%, 100%);
+  background: linear-gradient(135deg, hsl(217, 51%, 35%) 0%, hsl(216, 90%, 20%) 100%);
+  border: 4px solid hsl(43, 74%, 77%);
   border-radius: 30px;
 }
 
@@ -359,20 +361,21 @@
 }
 
 .faq-item {
-  overflow: hidden; /* clips the gold header to the rounded corners */
-  border: 1.5px solid #323761;
+  overflow: hidden;
+  /* clips the gold header to the rounded corners */
+  border: 1.5px solid hsl(234, 32%, 29%);
   border-radius: 40px;
 }
 
 /* Open state: gold question bar over a light answer panel */
 .faq-item--open {
-  background: #fffdf8;
-  border-color: #e6e6e6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: hsl(43, 100%, 99%);
+  border-color: hsl(0, 0%, 90%);
+  box-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.1);
 }
 
 .faq-item--open .faq-item__question {
-  background: #f5b942;
+  background: hsl(40, 90%, 61%);
 }
 
 .faq-item__question {
@@ -420,6 +423,7 @@
 
 /* Responsive */
 @media (max-width: 900px) {
+
   .about-pastors__card,
   .about-app__inner {
     grid-template-columns: 1fr;
@@ -436,6 +440,7 @@
 }
 
 @media (max-width: 600px) {
+
   .about .about-beliefs__grid,
   .about-doctrine__grid,
   .about-media {

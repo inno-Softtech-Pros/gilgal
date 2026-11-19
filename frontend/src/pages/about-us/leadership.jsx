@@ -1,7 +1,16 @@
+// frontend/src/pages/about-us/leadership.jsx
 import { useEffect } from "react";
-import "./About.css"; // reuses the About Us hero so all About pages share one header
-import "./Leadership.css";
+// import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
+import "./leadership.css";
 
+const FEATURE_HEADER = {
+  backgroundImage: "/images/heroes/about-us-hero.jpg",
+  title: "Leadership Team",
+  subtitle: "<Replace with suitable subtitle>"
+};
+
+/* ---------- Image paths (put these files in /public/images) ---------- */
 const IMG = "/images/about";
 const PHOTOS = "/images/about/leadership";
 
@@ -11,11 +20,12 @@ const TEAM = [
   { name: "Biju Sam", role: "Treasurer" },
   { name: "Bincy Philip", role: "Sunday School Director" },
   { name: "Joel George", role: "Youth Director", photo: "joel-george.jpg" },
-  { name: "Jessy Yeshudas", role: "Sister's Fellowship Coordinator" },
+  { name: "Jessy Yeshudas", role: "Sister's Fellowship Coordinator" }
 ];
 
 export default function Leadership() {
-  // Always open the page from the top when arriving from the navbar
+  useFeatureHeader(FEATURE_HEADER);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -23,10 +33,7 @@ export default function Leadership() {
   return (
     <div className="leadership">
       {/* Hero: same classes as the About Us page */}
-      <section
-        className="about-hero"
-        style={{ backgroundImage: `url(${IMG}/hero.jpg)` }}
-      >
+      <section className="about-hero" style={{ backgroundImage: `url(${IMG}/hero.jpg)` }}>
         <h1 className="about-hero__title">OUR TEAM</h1>
       </section>
 
@@ -37,15 +44,7 @@ export default function Leadership() {
         <div className="leadership__grid">
           {TEAM.map(({ name, role, photo }) => (
             <article key={name} className="leader-card">
-              <div className="leader-card__avatar">
-                {photo && (
-                  <img
-                    src={`${PHOTOS}/${photo}`}
-                    alt={name}
-                    loading="lazy"
-                  />
-                )}
-              </div>
+              <div className="leader-card__avatar">{photo && <img src={`${PHOTOS}/${photo}`} alt={name} loading="lazy" />}</div>
               <h3 className="leader-card__name">{name}</h3>
               <p className="leader-card__role">{role}</p>
             </article>
@@ -59,11 +58,9 @@ export default function Leadership() {
           <h2 className="leadership__heading">Our Leadership</h2>
           <h3 className="leadership__subheading">Shepherding with Purpose</h3>
           <p>
-            At Gilgal AG Church, leadership is not about position but about
-            serving people with Christ's heart. Every pastor, elder, ministry
-            leader, and volunteer is committed to helping individuals grow
-            spiritually while building a Christ-centered community rooted in
-            prayer, discipleship, and love.
+            At Gilgal AG Church, leadership is not about position but about serving people with Christ's heart. Every pastor, elder,
+            ministry leader, and volunteer is committed to helping individuals grow spiritually while building a Christ-centered community
+            rooted in prayer, discipleship, and love.
           </p>
         </div>
       </section>

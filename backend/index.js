@@ -1,5 +1,5 @@
 // backend/index.js
-require("dotenv").config(); // must be the very first line
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -10,7 +10,7 @@ const sermonRoutes = require("./src/routes/sermonRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-   app.use(cors({ origin: ["http://localhost:5173", "https://gilgal-seven.vercel.app"] }));; // your frontend's port
+app.use(cors({ origin: ["http://localhost:5173", "https://gilgal-seven.vercel.app"] })); // your frontend's port
 app.use(express.json());
 
 app.get("/", (req, res) => res.send("Hello, Express is working!"));
@@ -23,7 +23,6 @@ app.use((req, res) => {
   console.log("No route for:", req.method, req.originalUrl);
   res.status(404).json({ success: false, message: "Route not found" });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

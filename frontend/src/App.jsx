@@ -1,3 +1,4 @@
+// frontend/src/App.jsx
 import AppRoutes from "./routes/appRoutes";
 
 export default function App() {

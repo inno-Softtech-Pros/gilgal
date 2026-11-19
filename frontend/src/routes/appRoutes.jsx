@@ -7,11 +7,11 @@ import Home from "../pages/home/home";
 import Events from "../pages/calendar/calendar";
 import Media from "../pages/media/media";
 
-import About from "../pages/AboutUs/About";
-import Journey from "../pages/AboutUs/Journey";
-import Leadership from "../pages/AboutUs/Leadership";
+import About from "../pages/about-us/about";
+import Journey from "../pages/about-us/journey";
+import Leadership from "../pages/about-us/leadership";
 
-import Gallery from "../pages/Gallery/Gallery";
+import Gallery from "../pages/gallery/gallery";
 
 import ComingSoon from "../pages/coming-soon/comingSoon";
 import NotFound from "../pages/not-found/notFound";

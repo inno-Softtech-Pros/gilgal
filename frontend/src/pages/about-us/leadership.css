@@ -1,15 +1,13 @@
+/* frontend/src/pages/about-us/leadership.css */
 .leadership {
-  --l-navy: #0d3b66;
-  --l-name: #252a57;
-  --l-gold: #e0a92e;
-  --l-text: #5a7088;
-  --l-bg: #fdfcf8;
-
+  --l-navy: hsl(209, 77%, 23%);
+  --l-name: hsl(234, 40%, 24%);
+  --l-gold: hsl(41, 74%, 53%);
+  --l-text: hsl(211, 20%, 44%);
+  --l-bg: hsl(48, 56%, 98%);
   background: var(--l-bg);
   color: var(--l-text);
 }
-
-/* The hero comes from About.css (.about-hero) so it matches the About Us page. */
 
 /* ---------- Team ---------- */
 .leadership__team {
@@ -37,17 +35,17 @@
   flex-direction: column;
   align-items: center;
   padding: clamp(14px, 2vw, 28px) clamp(10px, 1.6vw, 20px);
-  background: #fff;
-  border: 1px solid rgba(90, 112, 136, 0.25);
+  background: hsl(0, 0%, 100%);
+  border: 1px solid hsla(211, 20%, 44%, 0.25);
   border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(13, 59, 102, 0.08);
+  box-shadow: 0 4px 14px hsla(209, 77%, 23%, 0.08);
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .leader-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(13, 59, 102, 0.14);
+  box-shadow: 0 10px 24px hsla(209, 77%, 23%, 0.14);
 }
 
 /* Grey circle shows when a member has no photo yet */
@@ -56,8 +54,8 @@
   aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
-  background: #b3adac;
-  border: 1px solid rgba(37, 42, 87, 0.15);
+  background: hsl(9, 4%, 69%);
+  border: 1px solid hsla(234, 40%, 24%, 0.15);
 }
 
 .leader-card__avatar img {
@@ -84,12 +82,10 @@
 /* ---------- Our Leadership band ---------- */
 .leadership__about {
   padding: clamp(36px, 5vw, 70px) clamp(16px, 2.4vw, 32px);
-  background: radial-gradient(
-    ellipse at 25% 50%,
-    #fffdf6 0%,
-    #f8efd0 55%,
-    #f3e6b8 100%
-  );
+  background: radial-gradient(ellipse at 25% 50%,
+      hsl(47, 100%, 98%) 0%,
+      hsl(47, 74%, 89%) 55%,
+      hsl(47, 71%, 84%) 100%);
 }
 
 .leadership__about-inner {

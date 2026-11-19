@@ -1,19 +1,18 @@
 // frontend/src/components/header/header.jsx
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { AuthProvider } from "../../context/auth.jsx";
 import "./header.css";
 
 // [label, path, optional dropdown items]
-// Change "/our-journey" if your Journey page uses a different route.
 const LINKS = [
   ["Home", "/home"],
   ["About Us", "/about-us", [["Our Journey", "/about-us/journey"]]],
   ["Events", "/events"],
   ["Media", "/media"],
   ["Gallery", "/gallery"],
-  ["Contact", "/contact-us"],
+  ["Contact", "/contact-us"]
 ];
 
 function NavDropdown({ label, path, items, onNavigate }) {
@@ -22,9 +21,7 @@ function NavDropdown({ label, path, items, onNavigate }) {
   const wrapRef = useRef(null);
 
   // The group is highlighted on the parent page and any dropdown page
-  const groupActive = [path, ...items.map(([, to]) => to)].some(
-    (to) => pathname === to || pathname.startsWith(`${to}/`)
-  );
+  const groupActive = [path, ...items.map(([, to]) => to)].some((to) => pathname === to || pathname.startsWith(`${to}/`));
 
   // Close when clicking outside or pressing Esc
   useEffect(() => {
@@ -50,10 +47,7 @@ function NavDropdown({ label, path, items, onNavigate }) {
   };
 
   return (
-    <div
-      ref={wrapRef}
-      className={`hd-dropdown ${open ? "is-open" : ""} ${groupActive ? "active" : ""}`}
-    >
+    <div ref={wrapRef} className={`hd-dropdown ${open ? "is-open" : ""} ${groupActive ? "active" : ""}`}>
       <NavLink className="hd-nav-link" to={path} onClick={handleNavigate}>
         {label}
       </NavLink>
@@ -103,7 +97,11 @@ export default function Header({ backgroundImage, title, subtitle }) {
       <div className="hd-overlay" />
       <div className="hd-container">
         <NavLink className="hd-logo-box" to="/home" aria-label="Gilgal AG home">
-          <img className="hd-logo-img" src="/gagiwc_logo_white-text_transp-bg.png" alt="Gilgal AG International Worship Centre" />
+          <img
+            className="hd-logo-img"
+            src="/images/logos/gagiwc_logo_white-text_transp-bg.png"
+            alt="Gilgal AG International Worship Centre"
+          />
         </NavLink>
 
         <button

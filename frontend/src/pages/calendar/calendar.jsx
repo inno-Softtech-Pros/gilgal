@@ -1,26 +1,26 @@
 // frontend/src/pages/calendar/calendar.jsx
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import useFeatureHeader from "../../hooks/useFeatureHeader";
 import apiClient from "../../config/axios";
+import useFeatureHeader from "../../hooks/useFeatureHeader";
 import "./calendar.css";
 
 const FEATURE_HEADER = {
-  backgroundImage: "",
+  backgroundImage: "/images/heroes/events-hero.jpg",
   title: "Events",
-  subtitle: "Discover what is happening at Gilgal AG Church this month"
+  subtitle: "Discover what is happening at our church this month."
 };
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const TONES = [
-  { name: "purple", color: "#8f78d4" },
-  { name: "green", color: "#58b778" },
-  { name: "orange", color: "#d89a52" },
-  { name: "pink", color: "#e87982" },
-  { name: "blue", color: "#5797c7" },
-  { name: "yellow", color: "#d7b657" }
+  { name: "purple", color: "hsl(255, 52%, 65%)" },
+  { name: "green", color: "hsl(140, 40%, 53%)" },
+  { name: "orange", color: "hsl(32, 63%, 58%)" },
+  { name: "pink", color: "hsl(355, 71%, 69%)" },
+  { name: "blue", color: "hsl(206, 50%, 56%)" },
+  { name: "yellow", color: "hsl(45, 62%, 59%)" }
 ];
 
 const transformEvent = (event, index) => {

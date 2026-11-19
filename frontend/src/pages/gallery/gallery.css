@@ -1,12 +1,12 @@
-/* Sizes are the 1440px design values, scaled with clamp() for smaller screens */
+/* frontend/src/pages/gallery/gallery.css */
 .gallery {
-  --blue: #0d3b66;
-  --gold: #c99a3e;
+  --blue: hsl(209, 77%, 23%);
+  --gold: hsl(40, 56%, 52%);
   --pad: clamp(16px, 2.4vw, 35px);
   --gap: clamp(12px, 1.7vw, 24px);
   --radius: clamp(6px, 0.85vw, 12px);
 
-  background: #fff;
+  background: hsl(0, 0%, 100%);
   color: var(--blue);
 }
 
@@ -22,11 +22,12 @@
 /* Hero */
 .gallery-hero {
   position: relative;
-  height: 100vh; /* fills the first screen; the tabs start below the fold */
+  height: 100vh;
+  /* fills the first screen; the tabs start below the fold */
   height: 100svh;
   min-height: 480px;
-  background: #0b0b10 center / cover no-repeat;
-  color: #fff;
+  background: hsl(240, 19%, 5%) center / cover no-repeat;
+  color: hsl(0, 0%, 100%);
   text-align: center;
 }
 
@@ -37,7 +38,8 @@
   top: 45%;
   transform: translateY(-50%);
   margin: 0;
-  padding-left: 0.34em; /* balances the trailing letter-spacing */
+  padding-left: 0.34em;
+  /* balances the trailing letter-spacing */
   font-size: clamp(34px, 5vw, 72px);
   font-weight: 400;
   letter-spacing: 0.34em;
@@ -59,10 +61,11 @@
 .gallery-tabs {
   position: relative;
   z-index: 1;
-  scroll-margin-top: clamp(60px, 5.6vw, 80px); /* keeps the bar clear of the sticky navbar */
-  background: #fff;
-  border-bottom: 1px solid #000;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  scroll-margin-top: clamp(60px, 5.6vw, 80px);
+  /* keeps the bar clear of the sticky navbar */
+  background: hsl(0, 0%, 100%);
+  border-bottom: 1px solid hsl(0, 0%, 0%);
+  box-shadow: 0 6px 14px hsla(0, 0%, 0%, 0.12);
 }
 
 .gallery-tabs__list {
@@ -134,7 +137,7 @@
   position: absolute;
   overflow: hidden;
   border-radius: var(--radius);
-  background: #e8e8e8;
+  background: hsl(0, 0%, 91%);
 }
 
 .gallery-tile img {
@@ -158,7 +161,7 @@
   margin-bottom: var(--gap);
   overflow: hidden;
   border-radius: var(--radius);
-  background: #e8e8e8;
+  background: hsl(0, 0%, 91%);
 }
 
 .gallery-masonry img {
@@ -191,19 +194,19 @@
   width: 100%;
   height: clamp(44px, 3.9vw, 56px);
   padding: 0 clamp(14px, 1.6vw, 22px) 0 clamp(18px, 2.4vw, 34px);
-  background: #064c8e;
-  border: 2px solid #123563;
+  background: hsl(209, 92%, 29%);
+  border: 2px solid hsl(214, 69%, 23%);
   border-radius: 999px;
   cursor: pointer;
   font: inherit;
   font-size: clamp(15px, 1.8vw, 26px);
   font-weight: 700;
   text-align: left;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
 }
 
 .events-select__button:focus-visible {
-  outline: 3px solid #123563;
+  outline: 3px solid hsl(214, 69%, 23%);
   outline-offset: 2px;
 }
 
@@ -225,10 +228,10 @@
   right: 0;
   z-index: 5;
   padding: 12px;
-  background: #fff;
-  border: 2px solid #123563;
+  background: hsl(0, 0%, 100%);
+  border: 2px solid hsl(214, 69%, 23%);
   border-radius: 20px;
-  box-shadow: 0 10px 24px rgba(18, 53, 99, 0.18);
+  box-shadow: 0 10px 24px hsla(214, 69%, 23%, 0.18);
 }
 
 /* Search bar at the top of the list */
@@ -238,9 +241,9 @@
   gap: 10px;
   height: 44px;
   padding: 0 16px;
-  border: 1.5px solid #123563;
+  border: 1.5px solid hsl(214, 69%, 23%);
   border-radius: 999px;
-  color: #123563;
+  color: hsl(214, 69%, 23%);
 }
 
 .events-select__search:focus-within {
@@ -261,11 +264,11 @@
   font: inherit;
   font-size: 16px;
   font-weight: 700;
-  color: #123563;
+  color: hsl(214, 69%, 23%);
 }
 
 .events-select__search input::placeholder {
-  color: #546e8f;
+  color: hsl(214, 26%, 45%);
   opacity: 1;
 }
 
@@ -288,33 +291,33 @@
   font: inherit;
   font-size: 17px;
   text-align: left;
-  color: #123563;
+  color: hsl(214, 69%, 23%);
   transition: background-color 0.15s;
 }
 
 /* Hover / keyboard focus: soft blue */
 .events-select__option:hover,
 .events-select__option:focus-visible {
-  background: #e6edf7;
+  background: hsl(215, 52%, 94%);
   outline: none;
 }
 
 /* Selected category: soft cream, bold */
 .events-select__option--selected {
-  background: #f4ecc9;
+  background: hsl(49, 66%, 87%);
   font-weight: 700;
 }
 
 .events-select__option--selected:hover,
 .events-select__option--selected:focus-visible {
-  background: #ecdfae;
+  background: hsl(47, 62%, 80%);
 }
 
 .events-select__empty {
   margin: 12px 0 4px;
   padding: 0 16px;
   font-size: 16px;
-  color: #546e8f;
+  color: hsl(214, 26%, 45%);
 }
 
 .events-search {
@@ -325,9 +328,9 @@
   gap: 12px;
   height: clamp(44px, 3.9vw, 56px);
   padding: 0 clamp(14px, 2vw, 28px);
-  border: 2px solid #123563;
+  border: 2px solid hsl(214, 69%, 23%);
   border-radius: 999px;
-  color: #123563;
+  color: hsl(214, 69%, 23%);
 }
 
 .events-search svg {
@@ -349,7 +352,7 @@
 }
 
 .events-search input::placeholder {
-  color: #546e8f;
+  color: hsl(214, 26%, 45%);
   opacity: 1;
 }
 
@@ -373,14 +376,14 @@
   width: calc((100% - 2 * var(--gap)) / 3);
   overflow: hidden;
   border-radius: 32px;
-  background: #f4ecc9;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  background: hsl(49, 66%, 87%);
+  box-shadow: 0 6px 16px hsla(0, 0%, 0%, 0.12);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .event-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 10px 22px hsla(0, 0%, 0%, 0.16);
 }
 
 .event-card a {
@@ -398,7 +401,7 @@
 }
 
 .event-card__placeholder {
-  background: #969090;
+  background: hsl(0, 3%, 58%);
 }
 
 .event-card__title {
@@ -424,8 +427,8 @@
   height: clamp(26px, 2.2vw, 32px);
   margin-bottom: clamp(32px, 4.5vw, 65px);
   border-radius: 50%;
-  background: #123563;
-  color: #fff;
+  background: hsl(214, 69%, 23%);
+  color: hsl(0, 0%, 100%);
   transition: background-color 0.2s;
 }
 

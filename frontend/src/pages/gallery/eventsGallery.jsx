@@ -1,3 +1,4 @@
+// frontend/src/pages/gallery/eventsGallery.jsx
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronDown, Search } from "lucide-react";
@@ -9,8 +10,7 @@ const IMG = "/images/gallery/events";
 // photo file names in `photos` and they appear on the event page and in "All".
 // An event with a `layout` (width, height, tiles) shows its photos as an exact mosaic
 // from the design; each tile is [x, y, width, height, objectPosition?], in the same order as `photos`.
-const numbered = (prefix, count) =>
-  Array.from({ length: count }, (_, i) => `${prefix}-${String(i + 1).padStart(2, "0")}.jpg`);
+const numbered = (prefix, count) => Array.from({ length: count }, (_, i) => `${prefix}-${String(i + 1).padStart(2, "0")}.jpg`);
 
 // Living Flame: first mosaic (20 photos, living-flame-01.jpg ... -20.jpg)
 const LIVING_FLAME_W = 1370;
@@ -38,7 +38,7 @@ const LIVING_FLAME_TILES = [
   [1046, 863, 324, 372],
   // Bottom row
   [0, 1058, 324, 177, "center 20%"], // living-flame-19: shows a bit more above the head
-  [349, 1058, 440, 177, "center 20%"], // living-flame-20: shows a bit more above the head
+  [349, 1058, 440, 177, "center 20%"] // living-flame-20: shows a bit more above the head
 ];
 
 // Living Flame '26: second mosaic (22 photos, living-flame-26-01.jpg ... -22.jpg),
@@ -66,7 +66,7 @@ const LIVING_FLAME_26_TILES = [
   [465, 1106, 324, 362],
   [813, 1106, 209, 362],
   [1046, 1216, 324, 252, "center 20%"], // living-flame-26-21: shows a bit more above the head
-  [0, 1216, 441, 252, "center 20%"], // living-flame-26-22: shows a bit more above the head
+  [0, 1216, 441, 252, "center 20%"] // living-flame-26-22: shows a bit more above the head
 ];
 
 const SECTION_GAP = 24; // space between the two mosaics, in design pixels
@@ -109,9 +109,9 @@ export const EVENTS = [
         [348, 1669, 208, 288],
         [581, 1669, 208, 288],
         [813, 1669, 208, 288],
-        [1046, 1669, 324, 288],
-      ],
-    },
+        [1046, 1669, 324, 288]
+      ]
+    }
   },
   {
     // One Living Flame card: the '26 photos are part of this event
@@ -121,16 +121,13 @@ export const EVENTS = [
     cover: "living-flame.jpg",
     photos: [
       ...numbered("living-flame", 20), // living-flame-01.jpg ... -20.jpg
-      ...numbered("living-flame-26", 22), // living-flame-26-01.jpg ... -22.jpg
+      ...numbered("living-flame-26", 22) // living-flame-26-01.jpg ... -22.jpg
     ],
     layout: {
       width: LIVING_FLAME_W,
       height: LIVING_FLAME_26_OFFSET + LIVING_FLAME_26_H,
-      tiles: [
-        ...LIVING_FLAME_TILES,
-        ...LIVING_FLAME_26_TILES.map(([x, y, ...rest]) => [x, y + LIVING_FLAME_26_OFFSET, ...rest]),
-      ],
-    },
+      tiles: [...LIVING_FLAME_TILES, ...LIVING_FLAME_26_TILES.map(([x, y, ...rest]) => [x, y + LIVING_FLAME_26_OFFSET, ...rest])]
+    }
   },
   {
     slug: "vbs",
@@ -155,16 +152,14 @@ export const EVENTS = [
         // Bottom row
         [0, 659, 557, 248],
         [581, 659, 324, 248],
-        [929, 659, 441, 248],
-      ],
-    },
-  },
+        [929, 659, 441, 248]
+      ]
+    }
+  }
 ];
 
 export const eventPhotos = ({ title, cover, photos }) =>
-  [cover, ...photos]
-    .filter(Boolean)
-    .map((file, i) => ({ src: `${IMG}/${file}`, alt: `${title} photo ${i + 1}` }));
+  [cover, ...photos].filter(Boolean).map((file, i) => ({ src: `${IMG}/${file}`, alt: `${title} photo ${i + 1}` }));
 
 // Natural-shape photo wall, used by All, Youth, Children and each event page
 export function PhotoMasonry({ photos, empty = "Photos coming soon." }) {
@@ -196,12 +191,7 @@ export function PhotoMosaic({ tiles, width, height, photos }) {
             className="gallery-tile"
             style={{ left: pct(x, width), top: pct(y, height), width: pct(w, width), height: pct(h, height) }}
           >
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              style={focus ? { objectPosition: focus } : undefined}
-              loading="lazy"
-            />
+            <img src={photo.src} alt={photo.alt} style={focus ? { objectPosition: focus } : undefined} loading="lazy" />
           </li>
         );
       })}
@@ -211,10 +201,7 @@ export function PhotoMosaic({ tiles, width, height, photos }) {
 
 // Dropdown options: "All" first, then one option per event box.
 // `value` is the selected event slug ("" means All).
-const EVENT_OPTIONS = [
-  { slug: "", title: "All" },
-  ...EVENTS.map(({ slug, title }) => ({ slug, title })),
-];
+const EVENT_OPTIONS = [{ slug: "", title: "All" }, ...EVENTS.map(({ slug, title }) => ({ slug, title }))];
 
 // Custom event dropdown: a search bar on top, then All and the event names
 function EventDropdown({ value, onChange }) {
@@ -256,13 +243,7 @@ function EventDropdown({ value, onChange }) {
 
   return (
     <div className={`events-select ${open ? "events-select--open" : ""}`} ref={wrapRef}>
-      <button
-        type="button"
-        className="events-select__button"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        onClick={toggle}
-      >
+      <button type="button" className="events-select__button" aria-haspopup="listbox" aria-expanded={open} onClick={toggle}>
         <span>{selected.title}</span>
         <ChevronDown size={32} strokeWidth={2.5} aria-hidden="true" />
       </button>
@@ -308,11 +289,7 @@ function EventList() {
   const [selectedSlug, setSelectedSlug] = useState("");
   const [query, setQuery] = useState("");
   const search = query.trim().toLowerCase();
-  const visible = EVENTS.filter(
-    (event) =>
-      (!selectedSlug || event.slug === selectedSlug) &&
-      event.title.toLowerCase().includes(search)
-  );
+  const visible = EVENTS.filter((event) => (!selectedSlug || event.slug === selectedSlug) && event.title.toLowerCase().includes(search));
 
   return (
     <>
@@ -336,11 +313,7 @@ function EventList() {
           {visible.map(({ slug, title, cover }) => (
             <li key={slug} className="event-card">
               <Link to={`/gallery/events/${slug}`}>
-                {cover ? (
-                  <img src={`${IMG}/${cover}`} alt="" loading="lazy" />
-                ) : (
-                  <span className="event-card__placeholder" />
-                )}
+                {cover ? <img src={`${IMG}/${cover}`} alt="" loading="lazy" /> : <span className="event-card__placeholder" />}
                 <span className="event-card__title">{title}</span>
               </Link>
             </li>
@@ -355,9 +328,7 @@ function EventList() {
 
 function EventAlbum({ event }) {
   const { layout, photos } = event;
-  const items = layout
-    ? photos.map((file, i) => ({ src: `${IMG}/${file}`, alt: `${event.title} photo ${i + 1}` }))
-    : eventPhotos(event);
+  const items = layout ? photos.map((file, i) => ({ src: `${IMG}/${file}`, alt: `${event.title} photo ${i + 1}` })) : eventPhotos(event);
 
   return (
     <>
